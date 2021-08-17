@@ -68,3 +68,30 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `yarn build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+# react-start settign
+node v12.18.0
+npm 7.8.0
+
+## installs
+### sass
+`npm install node sass`
+### 
+`npm install --save normalize-scss`
+
+### router
+`npm i react-router-dom`
+
+### material-ui
+`npm install @material-ui/core`
+`npm install @material-ui/icons`
+
+### react-transition-form 
+`npm install react-transition-group --save`
+
+unuse-------------------------------------
+
+
+### react hook from 
+`npm install react-hook-form`

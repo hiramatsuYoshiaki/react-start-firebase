@@ -1,0 +1,184 @@
+//container -------------------------------------------
+
+//header ----------------------------------------------
+$header-height: 5.6rem !default;
+$header-padding: 1.6rem !default;
+$header-bg-color: #0069C0 !default;
+$header-color: #ffffff!default;
+
+//footer ----------------------------------------------
+$footer-height:5.6rem !default;
+$footer-padding: 1.6rem !default;
+$footer-bg-color: #0069C0 !default;
+$footer-color: #ffffff!default;
+
+//main -----------------------------------------------
+
+//navigation Drawer
+$navigation-drawer-height:100vh !default;
+$navigation-drawer-padding: 1.6rem !default;
+$navigation-drawer-bg-color: #44ccff !default;
+$navigation-drawer-color: #212121!default;
+$navigation-drawer-modal-width: 25.6rem !default;
+$navigation-drawer-modal-height: 64.0rem !default;
+//back drop drawer
+$backdrop-drawer-min-height:50vh !default;
+$backdrop-drawer-padding: 1.6rem !default;
+$backdrop-drawer-bg-color: #44ccff !default;
+$backdrop-drawer-color: #212121!default;
+// 
+
+
+
+// Spacing --------------------------------------------
+$block-spacing: 1.5rem !default;
+
+
+
+
+//html body setting
+$font-size: 62.5% !default;
+$font-body-size: 16px !default;
+$line-height: 16px !default;
+$body-min-width: 375px !default;
+// $font-family: '游ゴシック Medium', 'Yu Gothic Medium', '游ゴシック体', YuGothic, sans-serif !default;
+// $font-family: "ヒラギノ角ゴ Pro W3","Hiragino Kaku Gothic Pro","メイリオ",Meiryo,"ＭＳ Ｐゴシック","MS PGothic",sans-serif!default;
+// $font-family: 'Space Mono',"rz-regular", "maison-neue-mono",'Space Mono', monospace, Helvetica, Arial, sans-serif!default;
+$font-family: "Roboto", Helvetica, Arial, sans-serif !default;
+
+//font-size
+$size-1: 6rem !default;
+$size-2: 3.75rem !default;
+$size-3: 3rem !default;
+$size-4: 2.125rem !default;
+$size-5: 1.5rem !default; 
+$size-6: 1.25rem !default;
+$size-7: 1rem !default; //title
+$size-8: 0.875rem !default; //subtitle button
+$size-9: 0.75rem !default;  //caption
+//font-weight
+$weight-light: 300 !default;
+$weight-normal: 400 !default;
+$weight-medium: 500 !default;
+$weight-semibold: 600 !default;
+$weight-bold: 700 !default;
+
+//material-ui color p-500 ---------------------------------------------------
+//red
+$red-500-daark:#aa2e25 !default;
+$red-500:#f44336 !default;
+$red-500-light:#f6685e !default;
+
+//pink
+$pink-500-daark:#a31545 !default;
+$pink-500:#e91e63 !default;
+$pink-500-light:#ed4b82 !default;
+
+//purple
+$purple-500-daark:#6d1b7b !default;
+$purple-500:#9c27b0 !default;
+$purple-500-light:#af52bf !default;
+
+//deepPurple
+$deepPurple-500-daark:#482880 !default;
+$deepPurple-500:#673ab7 !default;
+$deepPurple-500-light:#8561c5 !default;
+
+//indigo
+$indigo-500-daark:#2c387e !default;
+$indigo-500:#3f51b5 !default;
+$indigo-500-light:#6573c3 !default;
+//blue
+$blue-500-daark:#1769aa !default;
+$blue-500:#2196f3 !default;
+$blue-500-light:#4dabf5 !default;
+
+//lightBlue
+$lightBlue-500-daark:#0276aa !default;
+$lightBlue-500:#03a9f4 !default;
+$lightBlue-500-light:#35baf6 !default;
+//cyan
+$cyan-500-daark:#008394 !default;
+$cyan-500:#00bcd4 !default;
+$cyan-500-light:#33c9dc !default;
+//teal
+$teal-500-daark:#00695f !default;
+$teal-500:#009688 !default;
+$teal-500-light:#33ab9f !default;
+//green
+$green-500-daark:#357a38 !default;
+$green-500:#4caf50 !default;
+$green-500-light:#6fbf73 !default;
+//lightGreen
+$lightGreen-500-daark:#618833 !default;
+$lightGreen-500:#8bc34a !default;
+$lightGreen-500-light:#a2cf6e !default;
+
+//lime
+$lime-500-daark:#8f9a27 !default;
+$lime-500:#8bc34a !default;
+$lime-500-light:#d7e360 !default;
+
+//yellow
+$yellow-500-daark:#b2a429 !default;
+$yellow-500:#ffeb3b !default;
+$yellow-500-light:#ffef62 !default;
+
+//amber
+$amber-500-daark:#b28704 !default;
+$amber-500:#ffc107 !default;
+$amber-500-light:#ffcd38 !default;
+//orange
+$orange-500-daark:#b26a00 !default;
+$orange-500:#ff9800 !default;
+$orange-500-light:#ffac33 !default;
+
+//deepOrenge
+$deepOrenge-500-daark:#b23c17 !default;
+$deepOrenge-500:#ff5722 !default;
+$deepOrenge-500-light:#ff784e !default;
+
+
+
+//brown
+$deepOrenge-500-daark:#4b2c20 !default;
+$deepOrenge-500:#775447 !default;
+$deepOrenge-500-light:#a78172 !default;
+
+
+//grey
+$deepOrenge-500-daark:#707070!default;
+$deepOrenge-500:#9e9e9e !default;
+$deepOrenge-500-light:#cfcfcf !default;
+
+//blueGrey
+$deepOrenge-500-daark:#34515f !default;
+$deepOrenge-500:#607d8c !default;
+$deepOrenge-500-light:#8eacbc !default;
+
+$black: #0000;
+$white: #ffffff;
+
+// color
+// $black: hsl(0, 0%, 4%) !default;
+// $black-bis: hsl(0, 0%, 7%) !default;
+// $black-ter: hsl(0, 0%, 14%) !default;
+
+// $grey-darker: hsl(0, 0%, 21%) !default;
+// $grey-dark: hsl(0, 0%, 29%) !default;
+// $grey: hsl(0, 0%, 48%) !default;
+// $grey-light: hsl(0, 0%, 71%) !default;
+// $grey-lighter: hsl(0, 0%, 86%) !default; 
+
+// $white-ter: hsl(0, 0%, 96%) !default;
+// $white-bis: hsl(0, 0%, 98%) !default;
+// $white: hsl(0, 0%, 100%) !default;
+
+// $orange: hsl(14, 100%, 53%) !default;
+// $yellow: hsl(48, 100%, 67%) !default;
+// $green: hsl(141, 71%, 48%) !default;
+// $turquoise: hsl(171, 100%, 41%) !default;
+// $cyan: hsl(204, 86%, 53%) !default;
+// $blue: hsl(217, 71%, 53%) !default;
+// $purple: hsl(271, 100%, 71%) !default;
+// $red: hsl(348, 100%, 61%) !default;

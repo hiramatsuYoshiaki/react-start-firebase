@@ -1,0 +1,347 @@
+@import "./variables.scss";
+
+//material-ui break point
+// xs, extra-small: 0px
+// sm, small: 600px
+// md, medium: 960px
+// lg, large: 1280px
+// xl, extra-large: 1920px
+
+//ブレイクポイント
+$mobileBreakPoint: 600px; //600
+$tabletBreakPoint: 768px; // 768
+$desktopBreakPoint: 960px; //960
+$widescreenBreakPoint: 1280px; //1280
+$fullhdBreakPoint: 1920px; //1920
+//拡大率
+$mobile: 1; 
+$tablet: 1.4; 
+$desktop: 1.8; 
+$widescreen: 2.2; 
+// $fullhd: 1.8; 
+//font-size
+// $size-1: 6rem !default;
+// $size-2: 3.75rem !default;
+// $size-3: 3rem !default;
+// $size-4: 2.125rem !default;
+// $size-5: 1.5rem !default; 
+// $size-6: 1.25rem !default;
+// $size-7: 1rem !default; //title
+// $size-8: 0.875rem !default; //subtitle button
+// $size-9: 0.75rem !default;  //caption
+//font-weight
+// $weight-light: 300 !default;
+// $weight-normal: 400 !default;
+// $weight-medium: 500 !default;
+// $weight-semibold: 600 !default;
+// $weight-bold: 700 !default;
+
+//$mobile
+h1,
+.h1 {
+  font-size: $size-1;//6rem
+  font-weight: 300;
+  line-height: 1.167;
+  letter-spacing: -0.01562em;
+}
+
+h2,
+.h2 {
+  font-size: $size-2;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: -0.00833em;
+}
+
+h3,
+.h3 {
+  font-size: $size-3;
+  font-weight: 400;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+h4,
+.h4 {
+  font-size: $size-4;
+  font-weight: 400;
+  line-height: 1.235;
+  letter-spacing: -0.00735em;
+}
+
+h5,
+.h5 {
+  font-size: $size-5;
+  font-weight: 400;
+  line-height: 1.334;
+  letter-spacing: 0em;
+}
+h6,
+.h6 {
+  font-size: $size-6;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: -0.0075em;
+}
+
+.h7, .subtitle1 {
+  font-size: $size-7;//1rem 
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.01562em;
+}
+.h8, .subtitle2, .buttonFontSize {
+  font-size: $size-8;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.01562em;
+}
+.h9, .caption {
+  font-size: $size-9;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: -0.01562em;
+}
+
+p,
+.p {
+  font-size: $size-6;
+  font-weight: 500;
+  line-height: 1.6;
+  letter-spacing: -0.0075em;
+}
+
+//$tablet
+
+@media (min-width: $tabletBreakPoint) {
+  h1,
+  .h1 {
+    font-size: calc(#{$tablet} * #{$size-1});
+    font-weight: 300;
+    line-height: 1.167;
+    letter-spacing: -0.01562em;
+  }
+  h2,
+  .h2 {
+    font-size: calc(#{$tablet} * #{$size-2});
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.00833em;
+  }
+  h3,
+  .h3 {
+    font-size: calc(#{$tablet} * #{$size-3});
+    font-weight: 400;
+    line-height: 1.167;
+    letter-spacing: 0em;
+  }
+  h4,
+  .h4 {
+    font-size: calc(#{$tablet} * #{$size-4});
+    font-weight: 400;
+    line-height: 1.235;
+    letter-spacing: -0.00735em;
+  }
+  h5,
+  .h5 {
+    font-size: calc(#{$tablet} * #{$size-5});
+    font-weight: 400;
+    line-height: 1.334;
+    letter-spacing: 0em;
+  }
+  h6,
+  .h6 {
+    font-size: calc(#{$tablet} * #{$size-6});
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: -0.0075em;
+  }
+  .h7, .subtitle1 {
+    font-size: calc(#{$tablet} * #{$size-7});
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.01562em;
+  }
+  .h8,.subtitle2, .buttonFontSize {
+    font-size: calc(#{$tablet} * #{$size-8});
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.01562em;
+  }
+  .h9, .caption  {
+    font-size: calc(#{$tablet} * #{$size-9});
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.01562em;
+  }
+  p,
+  .p {
+    font-size: calc(#{$tablet} * #{$size-6});
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: -0.0075em;
+  }
+}
+//desktop
+
+@media (min-width: $desktopBreakPoint) {
+  h1,
+  .h1 {
+    font-size: calc(#{$desktop} * #{$size-1});
+    font-weight: 300;
+    line-height: 1.167;
+    letter-spacing: -0.01562em;
+  }
+  h2,
+  .h2 {
+    font-size: calc(#{$desktop} * #{$size-2});
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.00833em;
+  }
+  h3,
+  .h3 {
+    font-size: calc(#{$desktop} * #{$size-3});
+    font-weight: 400;
+    line-height: 1.167;
+    letter-spacing: 0em;
+  }
+  h4,
+  .h4 {
+    font-size: calc(#{$desktop} * #{$size-4});
+    font-weight: 400;
+    line-height: 1.235;
+    letter-spacing: -0.00735em;
+  }
+  h5,
+  .h5 {
+    font-size: calc(#{$desktop} * #{$size-5});
+    font-weight: 400;
+    line-height: 1.334;
+    letter-spacing: 0em;
+  }
+  h6,
+  .h6 {
+    font-size: calc(#{$desktop} * #{$size-6});
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: -0.0075em;
+  }
+
+  .h7, .subtitle1 {
+    font-size: calc(#{$desktop} * #{$size-7});
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.01562em;
+  }
+  .h8,.subtitle2, .buttonFontSize {
+    font-size: calc(#{$desktop} * #{$size-8});
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.01562em;
+  }
+  .h9, .caption  {
+    font-size: calc(#{$desktop} * #{$size-9});
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.01562em;;
+  }
+  p,
+  .p {
+    font-size: calc(#{$desktop} * #{$size-6});
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: -0.0075em;
+  }
+}
+
+//widescreen
+@media (min-width: $widescreenBreakPoint) {
+  h1,
+  .h1 {
+    font-size: calc(#{$widescreen} * #{$size-1});
+    font-weight: 300;
+    line-height: 1.167;
+    letter-spacing: -0.01562em;
+  }
+  h2,
+  .h2 {
+    font-size: calc(#{$widescreen} * #{$size-2});
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.00833em;
+  }
+  h3,
+  .h3 {
+    font-size: calc(#{$widescreen} * #{$size-3});
+    font-weight: 400;
+    line-height: 1.167;
+    letter-spacing: 0em;
+  }
+  h4,
+  .h4 {
+    font-size: calc(#{$widescreen} * #{$size-4});
+    font-weight: 400;
+    line-height: 1.235;
+    letter-spacing: -0.00735em;
+  }
+  h5,
+  .h5 {
+    font-size: calc(#{$widescreen} * #{$size-5});
+    font-weight: 400;
+    line-height: 1.334;
+    letter-spacing: 0em;
+  }
+  h6,
+  .h6 {
+    font-size: calc(#{$widescreen} * #{$size-6});
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: -0.0075em;
+  }
+  .h7, .subtitle1 {
+    font-size: calc(#{$widescreen} * #{$size-7});
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.01562em;
+  }
+  .h8,.subtitle2, .buttonFontSize {
+    font-size: calc(#{$widescreen} * #{$size-8});
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.01562em;
+  }
+  .h9, .caption  {
+    font-size: calc(#{$widescreen} * #{$size-9});
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: -0.01562em;
+  }
+  p,
+  .p {
+    font-size: calc(#{$widescreen} * #{$size-6});
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: -0.0075em;
+  }
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+h5,
+.h6,
+.h7, .subtitle1,
+.h8,.subtitle2, .buttonFontSize,
+.h9, .caption, 
+p,
+.p {
+  margin: 0;
+  padding: 0;
+}

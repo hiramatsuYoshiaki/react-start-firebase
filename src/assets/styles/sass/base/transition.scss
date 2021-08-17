@@ -1,0 +1,428 @@
+/* push */
+// front layer Navigation Drawer
+.push-enter {
+    opacity: 1;
+    transform: translateX(-100%);
+    z-index:1;
+}
+.push-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    // transition: opacity 1s linear 1s, transform 1s ease-in-out 1000ms;
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+.push-exit {
+    opacity: 1;
+    transform: translateX(0);
+    z-index:-1;
+}
+.push-exit-active {
+    opacity: 1;
+    transform: translateX(-30%);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+// back layer container
+.pushBackLayer-enter {
+    opacity: 1;
+    transform: translateX(100%)
+}
+.pushBackLayer-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+.pushBackLayer-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+.pushBackLayer-exit-active {
+    opacity: 1;
+    transform: translateX(30%);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+
+/* overlay */
+// front layer Navigation Drawer
+// (feom left to right )
+.overlay-enter {
+    opacity: 1;
+    transform: translateX(-100%); //from left
+    z-index:1;
+}
+.overlay-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+.overlay-exit {
+    opacity: 1;
+    transform: translateX(0);
+    z-index:1;
+}
+.overlay-exit-active {
+    opacity: 1;
+    transform: translateX(-100%); //to right
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+// (feom right to left )
+.overlayR-enter {
+    opacity: 1;
+    transform: translateX(100%); //from right
+    z-index:1;
+}
+.overlayR-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+.overlayR-exit {
+    opacity: 1;
+    transform: translateX(0);
+    z-index:1;
+}
+.overlayR-exit-active {
+    opacity: 1;
+    transform: translateX(100%); //to left
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+// (feom bottom to top )
+.overLayB-enter {
+    opacity: 1;
+    transform: translateY(100%); //from right
+    z-index:1;
+}
+.overLayB-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+.overLayB-exit {
+    opacity: 1;
+    transform: translateY(0);
+    z-index:1;
+}
+.overLayB-exit-active {
+    opacity: 1;
+    transform: translateY(100%); //to left
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+// back layer container
+.overlayBackLayer-enter {
+    opacity: 1;
+    transform: translateX(0%)
+}
+.overlayBackLayer-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+.overlayBackLayer-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+.overlayBackLayer-exit-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+// screen layer 
+.overlayScreen-enter {
+    opacity: 0;
+    transform: translateX(0%);
+    z-index:1;
+}
+.overlayScreen-enter-active {
+    opacity: .4;
+    transform: translateX(0);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+.overlayScreen-enter-done {
+    opacity: .4;
+    transform: translateX(0%);
+}
+.overlayScreen-exit {
+    opacity: .4;
+    transform: translateX(0);
+    z-index:1;
+}
+.overlayScreen-exit-active {
+    opacity: 0;
+    transform: translateX(0);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+.overlayScreen-exit-done {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+
+
+
+
+/* fade */
+// front layer Navigation Drawer
+.fade-enter {
+    opacity: 0;
+    transform: translateX(0);
+    z-index:1;
+}
+.fade-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+.fade-exit {
+    opacity: 1;
+    transform: translateX(0);
+    z-index:-1;
+}
+.fade-exit-active {
+    opacity: 1;
+    transform: translateX(-30%);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+// back layer container
+.fadeBackLayer-enter {
+    opacity: 1;
+    transform: translateX(100%)
+}
+.fadeBackLayer-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+.fadeBackLayer-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+.fadeBackLayer-exit-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+
+/* Modal */
+// front layer Navigation Drawer
+.modal-enter {
+    opacity: 0;
+    transform: scale(2);
+    z-index:1;
+}
+.modal-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+.modal-exit {
+    opacity: 1;
+    transform: scale(1);
+    z-index:1;
+}
+.modal-exit-active {
+    opacity: 0;
+    transform: scale(2);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+// back layer container
+.modalBackLayer-enter {
+    opacity: 1;
+    transform: translateX(0%)
+}
+.modalBackLayer-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+.modalBackLayer-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+.modalBackLayer-exit-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+}
+
+// Nav Menu ( hoem auth cart )
+// react-router-dom  transition 
+.push-page-enter {
+    opacity: 1;
+    transform: translateX(0);
+    // z-index:1;
+    
+}
+.push-page-enter-active{
+    opacity: 1;
+    transform: translateX(0%);
+    transition: opacity .5s, 
+    transform .5s ease-out;
+    // transition-duration: 1s;
+    // z-index:1;
+}
+.push-page-exit {
+    opacity: 1;
+    transform: translateX(0);
+    // z-index:2;
+}
+.push-page-exit-active {
+    opacity: 1;
+    transform: translateX(100%);
+    transition: opacity 1s, 
+    transform 1s ease-out;
+    // z-index:2;
+}
+
+//input activation indicator
+.AIFocus-enter {
+    opacity: 1;
+    transform: translateX(-100%);
+}
+.AIFocus-enter-active{
+    opacity: 1;
+    transform: translateX(0%);
+    transition: opacity .5s, 
+    transform .25s ease-out;
+}
+.AIFocus-exit {
+    opacity: 1;
+    transform: translateX(0);
+}
+.AIFocus-exit-active {
+    opacity: 1;
+    transform: translateX(-100%);
+    transition: opacity 1s, 
+    transform 1s ease-out;
+}
+
+//input activation indicator
+.AIFocusLeft-enter {
+    opacity: 1;
+    transform: translateX(-50%);
+}
+.AIFocusLeft-enter-active{
+    opacity: 1;
+    transform: translateX(-100%);
+    transition: opacity .25s, 
+    transform .25s ease-out;
+}
+.AIFocusLeft-enter-done{
+    opacity: 1;
+    transform: translateX(-100%);
+}
+.AIFocusLeft-exit {
+    opacity: 1;
+    transform: translateX(-100%);
+}
+.AIFocusLeft-exit-active {
+    opacity: 1;
+    transform: translateX(-50%);
+    transition: opacity 1s, 
+    transform .25s ease-out;
+}
+.AIFocusLeft-exit-done {
+    opacity: 1;
+    transform: translateX(-50%);
+}
+
+.AIFocusRight-enter {
+    opacity: 1;
+    transform: translateX(50%);
+}
+.AIFocusRight-enter-active{
+    opacity: 1;
+    transform: translateX(100%);
+    transition: opacity .25s, 
+    transform .25s ease-out;
+}
+.AIFocusRight-enter-done{
+    opacity: 1;
+    transform: translateX(100%);
+}
+
+.AIFocusRight-exit {
+    opacity: 1;
+    transform: translateX(100%);
+}
+.AIFocusRight-exit-active {
+    opacity: 1;
+    transform: translateX(50%);
+    transition: opacity 1s, 
+    transform .25s ease-out;
+}
+.AIFocusRight-exit-done {
+    opacity: 1;
+    transform: translateX(50%);
+}
+
+// LabelFocus-----------------
+.LabelFocus-enter {
+    opacity: 1;
+    transform-origin: top left;
+    transform: scale(1, 1) translate(0,0);
+}
+.LabelFocus-enter-active{
+    opacity:1;
+    transform-origin: top left;
+    transform: scale(0.7, 0.7) translate(1.2rem,-2rem);
+    transition: opacity .25s, 
+    transform .25s ease-out;
+    
+}
+.LabelFocus-enter-done{
+    opacity: 1;
+    transform-origin: top left;
+    transform: scale(0.7, 0.7) translate(1.2rem,-2rem);
+}
+
+.LabelFocus-exit {
+    opacity: 1;
+    transform-origin: top left;
+    transform: scale(0.7, 0.7) translate(1.2rem,-2rem);
+}
+.LabelFocus-exit-active {
+    opacity: 1;
+    transform-origin: top left;
+    transform: scale(1, 1) translate(0,0);
+    transition: opacity 1s, 
+    transform .25s ease-out;
+}
+.LabelFocus-exit-done {
+    opacity: 1;
+    transform-origin: top left;
+    transform: scale(1, 1) translate(0,0);
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+  

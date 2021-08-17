@@ -1,0 +1,86 @@
+.f-app-wraper {
+    overflow:hidden;
+    margin:0;
+    padding:0;
+}
+
+.f-container{
+    width:100vw;
+    height: 100%;
+    min-height:100vh;
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    background-color:$white;
+
+}
+.f-main {
+    width:100vw;
+    height:calc(100vh  - #{$footer-height});
+    padding-top:$header-height;
+    overflow-y:scroll;
+    //スクロールバーの非表示
+    // -ms-overflow-style: none;    /* IE  対応 */
+    // scrollbar-width: none;       /* Firefox 対応 */
+    
+}
+//スクロールバーの非表示　mozira /* Chrome, Safari,Edge 対応 */
+// .f-main::-webkit-scrollbar {
+//     display:none;
+// }
+
+.f-header {
+    position:fixed;
+    width:100%;
+    height:$header-height;
+    top:0;
+    left:0;
+    background-color:$header-bg-color;
+    color:$header-color;
+    padding:$header-padding;
+}
+.f-footer {
+    position:fixed;
+    width:100%;
+    height:$footer-height;
+    bottom:0;
+    left:0;
+    background-color:$footer-bg-color;
+    color:$footer-color;
+    padding:$footer-padding;
+    
+}
+.f-NavigationDrawer{
+    position:fixed;
+    width:100vw;
+    top:0;
+    left:0;
+    // padding:$navigation-drawer-padding;
+    height:$navigation-drawer-height;
+    background-color:$navigation-drawer-bg-color;
+}
+.f-backdrop{
+    position:fixed;
+    width:100vw;
+    max-height:calc(100vh - #{$header-height } - 1.6rem);
+    // min-height:$backdrop-drawer-min-height;
+    bottom:0;
+    left:0;
+    // padding:$navigation-drawer-padding;
+    // height:$navigation-drawer-height;
+    // background-color:$navigation-drawer-bg-color;
+    background-color:#6ec6ff;
+    border-radius: 1.6rem 1.6rem  0 0 ;
+    padding: 3.2rem 1.6rem;
+    // margin-top:$header-height;
+    overflow-y:scroll;
+    
+}
+.f-screen{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100vw;
+    height:100vh;
+    background-color:rgba(0,0,0,1);
+}
