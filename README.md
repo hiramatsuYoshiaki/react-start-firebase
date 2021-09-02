@@ -300,5 +300,23 @@ service cloud.firestore {
 
   ```
 
+# バージョン8からモジュラーWebSDKにアップグレードします 
+現在FirebaseWeb SDKバージョン8以前を使用しているアプリは、このガイドの手順を使用してバージョン9への移行を検討する必要があります。
+
+1. index.jsの変更
+v8
+  ```
+    import firebase from "firebase/app"
+    import "firebase/auth";
+    import "firebase/firestore";
+    ```
+
+v9
+```
+  import firebase from "firebase/compat/app"//v9
+  import "firebase/compat/auth";//v9
+  import "firebase/compat/firestore";//v9
+```
 
 
+https://firebase.google.com/docs/web/modular-upgrade

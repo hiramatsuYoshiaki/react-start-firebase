@@ -1,5 +1,5 @@
 // import React, {useState, useContext, useReducer, } from 'react'
-import React, {useState, useContext, useCallback} from 'react'
+import React, { useContext,} from 'react'
 import { UserContext } from '../../UserContext' 
 import { Redirect } from 'react-router-dom';
 import { LoginData } from '../../util/LoginData'
@@ -7,7 +7,7 @@ import { useHistory, } from 'react-router-dom'
 import { CardUsignImage } from '../../components/surface/cards';
 import loginImage from '../../assets/img/png/undraw_profile_pic_ic5t.png'
 import {Btn} from '../../components/inputs/button/index'
-import {TextFields } from '../../components/inputs/textFields/index'
+// import {TextFields } from '../../components/inputs/textFields/index'
 
 import { makeStyles } from  '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
@@ -33,63 +33,39 @@ const Login = () => {
     const classes = useStyles()
     const history = useHistory()
 
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const inputSetEmail = useCallback((e) => setEmail(e.target.value),[setEmail])
-    const inputSetPassword = useCallback((e) => setPassword(e.target.value),[setPassword])
+    // const [email, setEmail] = useState("")
+    // const [password, setPassword] = useState("")
+    // const inputSetEmail = useCallback((e) => setEmail(e.target.value),[setEmail])
+    // const inputSetPassword = useCallback((e) => setPassword(e.target.value),[setPassword])
 
     // const [errors,setErrors] = useState({email:[{mas:""}],password:[{mas:""}]})
     // const [errors,setErrors] = useState({email:"",password:""})
-    const [emailMsg,setEmailMsg] = useState([
-        {id:0,msg:"メールアドレスを入力してください。＊必須"},
-        {id:1,msg:"メールアドレスは必須です。"},
-        {id:2,msg:"メールアドレスは２０文字以内です。"}
-    ])
-    console.log('emailMsg',emailMsg);
+    // const [emailMsg,setEmailMsg] = useState([
+    //     {id:0,msg:"メールアドレスを入力してください。＊必須"},
+    //     {id:1,msg:"メールアドレスは必須です。"},
+    //     {id:2,msg:"メールアドレスは２０文字以内です。"}
+    // ])
+    // console.log('emailMsg',emailMsg);
     // const [errorMessages, setErrors] = useState([])
-    const validations = () => {
-        console.log('validations');
-        // setErrors(prevErrors=> {...prevErrors,})
-        // setErrors(...errors,{name:'password', message:'パスワードは必須です。'})
-        // setErrors(prevErrors=> )
-        // console.log(...errors)
-        // console.log('validation errors', errors)
-        // setErrors(prevErrors => ({
-        //     ...prevErrors,
-        //     email:"メールあどれすは必須",
-        //     passwors:"パスワードは必須",
-        // }))
-        // console.log(email.length);
+    // const validations = () => {
+    //     // console.log('validations');
         
        
-        if(email === "" || email.length === 0 || email === null){
-            setEmailMsg(prevEmeilMsg => ([
-                ...prevEmeilMsg,
-                {id:1,msg:"メールアドレスは必須です。"},
-                ])
-            )
-        }
-        if(email.length > 20 ){
-            setEmailMsg(prevEmeilMsg => ([
-                ...prevEmeilMsg,
-                {id:2,msg:"メールアドレスは２０文字以内です。"}
-                ])
-            )
-        }
-        
-        
-       
-       
-        // const [{count1,count2}, setCountMulti] = useState({count1:10, count2:20})
-        // (currentState => ({
-        //     ...currentState, 
-        //     cosetCountMultiunt1 : currentState.count1 + 1, 
-        //     count2 : currentState.count2 + 1,
-        //   })
-        // console.log(errors);
-        
-        // return [emailMsg]
-    }
+    //     if(email === "" || email.length === 0 || email === null){
+    //         setEmailMsg(prevEmeilMsg => ([
+    //             ...prevEmeilMsg,
+    //             {id:1,msg:"メールアドレスは必須です。"},
+    //             ])
+    //         )
+    //     }
+    //     if(email.length > 20 ){
+    //         setEmailMsg(prevEmeilMsg => ([
+    //             ...prevEmeilMsg,
+    //             {id:2,msg:"メールアドレスは２０文字以内です。"}
+    //             ])
+    //         )
+    //     }
+    // }
 
     // const inputEmail = useCallback((e)=> setEmail(e),[setEmail])
     
@@ -129,7 +105,7 @@ const Login = () => {
                     />
                 </div>
                 <div className={classes.content}>
-                    <form onSubmit={e=>{
+                    {/* <form onSubmit={e=>{
                         e.preventDefault()
                         // const userValue = {
                         //     id:1,
@@ -169,13 +145,13 @@ const Login = () => {
                             href="#contained-buttons" 
                             type="submit"
                         />
-                    </form>
-                    <div className={classes.createAccount} onClick={()=>history.push('/signin')}>
+                    </form> */}
+                    {/* <div className={classes.createAccount} onClick={()=>history.push('/signin')}>
                         Create Account
-                    </div>
+                    </div> */}
                     
                     
-                    {/* <div className={classes.Login}>
+                    <div className={classes.Login}>
                         <div onClick={async () => {
                                 const user = await LoginData()
                                 setUser(user)
@@ -193,7 +169,7 @@ const Login = () => {
                         <div className={classes.createAccount} onClick={()=>history.push('/signin')}>
                             Create Account
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         )
