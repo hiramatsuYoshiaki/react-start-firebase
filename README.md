@@ -231,3 +231,35 @@ service cloud.firestore {
 ```
 
 `firebase deploy --only firestore:rules`
+
+# firebase を使用する。
+1. .envの作成
+  1-1 プロジェクトのルートに.envを作成する。
+  1.2 プロジェクトのホーム画面の歯車アイコンのメニューの[プロジェクトの設定]をクリック
+  1-3 SDK の設定と構成に表示されているfirebaseConfigの内容から.envを作成する。
+  ```
+    REACT_APP_API_KEY="..."
+    REACT_APP_AUTH_DOMAIN="..."
+    REACT_APP_PROJECT_ID="..."
+    REACT_APP_STORAGE_BUCKET="..."
+    REACT_APP_MESSAGING_SENDER_ID="..."
+    REACT_APP_APP_ID="..."
+    REACT_APP_MEASUREMENT_ID="..."
+    REACT_APP_GOOGLE_MAPS_API_KEY='...'
+  ```
+
+2. config.jsの作成
+
+3. index.jsの作成 
+
+
+
+4. 
+5. 
+6. 
+7. 
+8. 
+9. 
+10. 
+
+
