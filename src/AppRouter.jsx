@@ -65,14 +65,13 @@ const AppRouter = () => {
                                         <Route exact path="/signin" component={Signin} />
                                         <Route exact path="/resetpass" component={ResetPass} />
                                         <Route exact path="/" component={Home} />
-
+ 
                                         <Auth>
                                             {routes.map(({path,Component})=>(
                                                 <Route key={path} path={path} exact component={Component} />
                                             ))}
                                         </Auth>
                                         <Route exact component={NotFound} />
-                                   
                                 </Switch>
 
 
