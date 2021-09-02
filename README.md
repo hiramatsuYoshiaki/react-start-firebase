@@ -209,7 +209,25 @@ git add -A
 git commit -m "first commit"
 git branch -M main
 git remote -v
-
-git remote add origin https://github.com/hiramatsuYoshiaki/react-start-firebase.git
+origin  https://github.com/hiramatsuYoshiaki/react-start-firebase.git (fetch)
+origin  https://github.com/hiramatsuYoshiaki/react-start-firebase.git (push)
+git remote set-url origin https://hiramatsuYoshiaki:<トークン>@github.com/hiramatsuYoshiaki/react-start-firebase.git
+git remote -v
+origin  https://hiramatsuYoshiaki:<トークン>@github.com/hiramatsuYoshiaki/react-start.git (fetch)
+origin  https://hiramatsuYoshiaki:<トークン>@github.com/hiramatsuYoshiaki/react-start.git (push)
 git push -u origin main
 ```
+# firebase ルールの更新
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /posts/{postId} {
+      allow read, write: if request.auth.uid != null;
+    }
+  }
+}
+```
+
+`firebase deploy --only firestore:rules`
