@@ -3,7 +3,7 @@ import React from 'react'
 const home = () => {
     return (
         <div style={{backgroundColor:"white"}}>
-            home
+            home with firebase
             {/* <h1>header image</h1>
             <h3>header Title</h3>
             <div>
