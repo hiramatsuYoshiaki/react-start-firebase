@@ -232,8 +232,26 @@ service cloud.firestore {
 
 `firebase deploy --only firestore:rules`
 
-# firebase を使用する。
-1. .envの作成
+# firebase を使用するためのセットアップ。
+1. .gitignoreに.envを追加する
+    .gitignoreファイルに.envを追記して、gitリポジトリにプッシュします。リポジトリにプッシュした後、.envファイルをプロジェクトディレクトリに追加します。
+  1-1 gitignoreに.envを追加する
+      ```
+      # misc
+        .env
+        .DS_Store
+        .env.local
+        .env.development.local
+        .env.test.local
+        .env.production.local
+      ```
+  1-2 githubにpushする。
+    ```
+      git add -A
+      git commit -m ".gitignore added .env"
+      git push 
+    ```
+2. .envを作成する
   1-1 プロジェクトのルートに.envを作成する。
   1.2 プロジェクトのホーム画面の歯車アイコンのメニューの[プロジェクトの設定]をクリック
   1-3 SDK の設定と構成に表示されているfirebaseConfigの内容から.envを作成する。
@@ -247,19 +265,40 @@ service cloud.firestore {
     REACT_APP_MEASUREMENT_ID="..."
     REACT_APP_GOOGLE_MAPS_API_KEY='...'
   ```
-
+  
 2. config.jsの作成
-
+  2-1 プロジェクトのルートにfirebaseフォルダーを作成してconfig.jsファイルを作成する。
+  ```
+    export const firebaseConfig = {
+      apiKey: process.env.REACT_APP_API_KEY,
+      authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+      projectId: process.env.REACT_APP_PROJECT_ID,
+      storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+      messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+      appId: process.env.REACT_APP_APP_ID,
+      measurementId: process.env.REACT_APP_MEASUREMENT_ID
+    };  
+  ```
 3. index.jsの作成 
+  3-1 firebaseフォルダーにindex.jsファイルを作成する。
+  ```
+    import firebase from "firebase/app"
+    import "firebase/auth";
+    import "firebase/firestore";
+    import "firebase/functions";
+    import "firebase/storage";
+    import {firebaseConfig} from "./config";
 
+    firebase.initializeApp(firebaseConfig); 
+    export const auth = firebase.auth();
+    export const db = firebase.firestore();
+    export const functions = firebase.functions();
+    export const storage = firebase.storage();
+    export const fb = firebase;
+    export const FirebaseFieldValue = firebase.firestore.FieldValue
+    export const FirebaseTimestamp = firebase.firestore.Timestamp;  
 
+  ```
 
-4. 
-5. 
-6. 
-7. 
-8. 
-9. 
-10. 
 
 
