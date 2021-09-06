@@ -7,3 +7,5 @@ export {default as Shopping } from './Shopping'
 export {default as Serach } from './Serach'
 export {default as Setting } from './Setting'
 export {default as NotFound } from './NotFound'
+
+export {default as Firebase } from './Firebase'

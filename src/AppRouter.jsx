@@ -2,8 +2,8 @@ import React, { useState, useMemo } from 'react'
 import { UserContext } from './UserContext' 
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { Home, Chat, Gallery, Todo, Shopping, Cart, Serach, Setting, NotFound} from './pages/index'
-import { Login, Signin, Auth ,Logout, ResetPass} from './pages/auth/index'
+import { Home, Chat, Gallery, Todo, Shopping, Cart, Serach, Setting, NotFound, Firebase} from './pages/index'
+import { Login, Signin, Auth ,Logout, EditUser, ResetPass} from './pages/auth/index'
 import { TransitionPages, Fonts} from './pages/develop/index'
 import { TopAppBar } from './components/appBar/top/index'
 import { BottomAppBar } from './components/appBar/bottom/index'
@@ -12,9 +12,13 @@ import { Backdrop } from './components/backdrop/index'
 // import { Transition,CSSTransition,TransitionGroup, } from "react-transition-group";
 import { CSSTransition } from "react-transition-group";
 
+import { initializeApp } from 'firebase/app';
+import {firebaseConfig} from "./firebase/config";
+
 
 const AppRouter = () => {
 
+    const firebaseApp = initializeApp(firebaseConfig);
     const [user,setUser] = useState(null)
     const valueProvider = useMemo(()=> ({ user, setUser }), [ user, setUser ] ) 
     // console.log(valueProvider);
@@ -63,8 +67,10 @@ const AppRouter = () => {
                                         <Route exact path="/login" component={Login} />
                                         <Route exact path="/logout" component={Logout} />
                                         <Route exact path="/signin" component={Signin} />
+                                        <Route exact path="/edituser" component={EditUser} />
                                         <Route exact path="/resetpass" component={ResetPass} />
                                         <Route exact path="/" component={Home} />
+                                        <Route exact path="/firebase" component={Firebase} />
  
                                         <Auth>
                                             {routes.map(({path,Component})=>(

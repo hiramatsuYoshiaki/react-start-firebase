@@ -1,15 +1,19 @@
 // import React, {useState, useContext, useReducer, } from 'react'
-import React, { useContext,} from 'react'
+import React, {useState, useContext,} from 'react'
 import { UserContext } from '../../UserContext' 
 import { Redirect } from 'react-router-dom';
 import { LoginData } from '../../util/LoginData'
 import { useHistory, } from 'react-router-dom'
 import { CardUsignImage } from '../../components/surface/cards';
 import loginImage from '../../assets/img/png/undraw_profile_pic_ic5t.png'
-import {Btn} from '../../components/inputs/button/index'
-// import {TextFields } from '../../components/inputs/textFields/index'
+
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+
+
+
 
 import { makeStyles } from  '@material-ui/core/styles'
+
 const useStyles = makeStyles((theme) => ({
     header:{
         width:'100%',
@@ -32,60 +36,31 @@ const Login = () => {
     console.log('login');
     const classes = useStyles()
     const history = useHistory()
-
-    // const [email, setEmail] = useState("")
-    // const [password, setPassword] = useState("")
-    // const inputSetEmail = useCallback((e) => setEmail(e.target.value),[setEmail])
-    // const inputSetPassword = useCallback((e) => setPassword(e.target.value),[setPassword])
-
-    // const [errors,setErrors] = useState({email:[{mas:""}],password:[{mas:""}]})
-    // const [errors,setErrors] = useState({email:"",password:""})
-    // const [emailMsg,setEmailMsg] = useState([
-    //     {id:0,msg:"メールアドレスを入力してください。＊必須"},
-    //     {id:1,msg:"メールアドレスは必須です。"},
-    //     {id:2,msg:"メールアドレスは２０文字以内です。"}
-    // ])
-    // console.log('emailMsg',emailMsg);
-    // const [errorMessages, setErrors] = useState([])
-    // const validations = () => {
-    //     // console.log('validations');
-        
-       
-    //     if(email === "" || email.length === 0 || email === null){
-    //         setEmailMsg(prevEmeilMsg => ([
-    //             ...prevEmeilMsg,
-    //             {id:1,msg:"メールアドレスは必須です。"},
-    //             ])
-    //         )
-    //     }
-    //     if(email.length > 20 ){
-    //         setEmailMsg(prevEmeilMsg => ([
-    //             ...prevEmeilMsg,
-    //             {id:2,msg:"メールアドレスは２０文字以内です。"}
-    //             ])
-    //         )
-    //     }
-    // }
-
-    // const inputEmail = useCallback((e)=> setEmail(e),[setEmail])
-    
-
-    // const reducer = (state,action) => {
-    //     console.log('reducer');
-    //     switch(action.type){
-    //         case "login":
-    //             return action.email
-    //             // return [...state,action.email]
-    //             // return {
-    //             //   email:[...state, action.email],
-    //             //   password:[...state.password, {password:action.password}],
-    //             // };
-    //         default: 
-    //           return state;
-    //       }
-    // }
-    // const [userEmail,dispatch] = useReducer(reducer,null)
     const {user, setUser} = useContext(UserContext)
+    const [email,setEmail] = useState('addUser1@gmail.com')//addUser1@gmail.com ,user2@gmail.com, userX,hiramatsu1157@gmail.com
+    const [password,setPassword] = useState('addUser1Pass1234')//addUser1Pass1234,password1234,passXXXX,pass1111
+
+    
+    const login = () => {
+        console.log('signInWithEmailAndPassword'); 
+        const auth = getAuth();
+
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                // ...
+                console.log('login user:', user );
+                setUser(user)
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log('error code',errorCode);
+                console.log('errorMessage',errorMessage);
+            });
+    }
+
     if(user){
         return (<Redirect to="/logout" />) 
     }else {
@@ -105,71 +80,29 @@ const Login = () => {
                     />
                 </div>
                 <div className={classes.content}>
-                    {/* <form onSubmit={e=>{
-                        e.preventDefault()
-                        // const userValue = {
-                        //     id:1,
-                        //     email:email,
-                        //     username:"hiramatsu"
-                        // }
-                    }}>
-                        <TextFields 
-                            type="email"
-                            value={email}
-                            setValue={inputSetEmail}
-                            placeholder="メールアドレス"
-                            label="E-mail*" 
-                            helpers="メールアドレスを入力してください。＊必須"  
-                            errors={[
-                                {id:0,msg:"メールアドレスを入力してください。＊必須"},
-                                {id:1,msg:"メールアドレスは必須です。"},
-                                {id:2,msg:"メールアドレスは２０文字以内です。"}
-                            ]}
-                            // errors={emailMsg}
-                        />
-                        <TextFields 
-                            type="password"
-                            value={password}
-                            setValue={inputSetPassword}
-                            placeholder="パスワード"
-                            label="Password*" 
-                            helpers="パスワードを入力してください。＊必須"  
-                            errors={[]}
-                        />
-                        <Btn 
-                            text="Login" 
-                            // variant="text" // Text,Outlined,conteined 
-                            // variant="outline" // Text,Outlined,conteined
-                            variant="contained" // Text,Outlined,conteined
-                            color="primary" 
-                            href="#contained-buttons" 
-                            type="submit"
-                        />
-                    </form> */}
-                    {/* <div className={classes.createAccount} onClick={()=>history.push('/signin')}>
-                        Create Account
-                    </div> */}
-                    
-                    
-                    <div className={classes.Login}>
-                        <div onClick={async () => {
-                                const user = await LoginData()
-                                setUser(user)
-                            }}>
-                            <Btn 
-                                text="Login" 
-                                // variant="text" // Text,Outlined,conteined
-                                // variant="outline" // Text,Outlined,conteined
-                                variant="contained" // Text,Outlined,conteined
-                                color="primary" 
-                                href="#contained-buttons" 
-                                type="button"
-                            />
-                        </div>
-                        <div className={classes.createAccount} onClick={()=>history.push('/signin')}>
-                            Create Account
-                        </div>
+                    <div>
+                        <label htmlFor="email">
+                            Email:
+                            <input id="email" type="email" value={email} onChange={e => setEmail(e.target.value)}/>
+                        </label>
                     </div>
+                    <div>
+                        <label htmlFor="password">
+                            Password: 
+                            <input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+                        </label>
+                    </div>
+                    <button onClick={()=> login()}>login</button>
+                    <br></br>
+                    <br></br>
+                    <div className={classes.createAccount} onClick={()=>history.push('/resetpass')}>
+                        Forgot Password?
+                    </div>
+                    <br></br>
+                    <div className={classes.createAccount} onClick={()=>history.push('/signin')}>
+                        Create Account
+                    </div>
+
                 </div>
             </div>
         )

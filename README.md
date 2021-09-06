@@ -299,6 +299,12 @@ service cloud.firestore {
     export const FirebaseTimestamp = firebase.firestore.Timestamp;  
 
   ```
+# Cloud Firestore を使ってみる 
+version9
+https://firebase.google.com/docs/firestore/quickstart?hl=ja#web-v9_4
+# ウェブサイトで Firebase Authentication を使ってみる 
+version9
+https://firebase.google.com/docs/auth/web/start?hl=ja
 
 # バージョン8からモジュラーWebSDKにアップグレードします 
 現在FirebaseWeb SDKバージョン8以前を使用しているアプリは、このガイドの手順を使用してバージョン9への移行を検討する必要があります。
@@ -320,3 +326,4 @@ v9
 
 
 https://firebase.google.com/docs/web/modular-upgrade
+
