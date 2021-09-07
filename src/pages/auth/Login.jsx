@@ -37,8 +37,8 @@ const Login = () => {
     const classes = useStyles()
     const history = useHistory()
     const {user, setUser} = useContext(UserContext)
-    const [email,setEmail] = useState('addUser1@gmail.com')//addUser1@gmail.com ,user2@gmail.com, userX,hiramatsu1157@gmail.com
-    const [password,setPassword] = useState('addUser1Pass1234')//addUser1Pass1234,password1234,passXXXX,pass1111
+    const [email,setEmail] = useState('user1@gmail.com')//addUser1@gmail.com ,user2@gmail.com, userX,hiramatsu1157@gmail.com
+    const [password,setPassword] = useState('pass1111')//addUser1Pass1234,password1234,passXXXX,pass1111
 
     
     const login = () => {
