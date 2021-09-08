@@ -1,4 +1,4 @@
-import React,{useState,useContext} from 'react'
+import React,{useState,useContext,useEffect} from 'react'
 import { useHistory } from 'react-router-dom'
 import {UserContext} from '../../UserContext'
 import { collection, doc, addDoc, setDoc } from "firebase/firestore";
@@ -9,12 +9,11 @@ import { getFirestore } from "firebase/firestore"
 // import { getStorage, ref, getDownloadURL } from "firebase/storage"
 import { getStorage, ref, uploadBytes ,getDownloadURL} from "firebase/storage";
 
-
-
-
 const EditUser = () => {
     const history = useHistory()
     const {user, setUser} = useContext(UserContext)
+    const [avater,setAvater] = useState(null)
+    
     const [displayName, setDispalyName] = useState('')
     const [userInfo, setUserInfo] = useState({
         firstName:'fname',
@@ -26,6 +25,7 @@ const EditUser = () => {
         address:'南区大福111',
         tel:'090111222'
     })
+    const [photoURL,setPhotoURL] = useState('')
     console.log(userInfo);
     const setMoreInfo = (e) => {
         console.log('setMoreInfo');
@@ -122,15 +122,19 @@ const EditUser = () => {
         uploadBytes(storageRef, blob).then((snapshot) => {
             console.log(fileName);
             console.log('Uploaded a blob or file!');
-            
+
+            //URL取得    
             const starsRef = ref(storage, 'images/' + fileName);
             getDownloadURL(starsRef)
-            .then((URL) => {
-                console.log(URL);
-            })
-            .catch((e)=>{
-                console.log('firestore eror',  e)
-            })
+                .then((URL) => {
+                    console.log(URL);
+                    setPhotoURL(URL)
+                    //firestoregeにURLを登録する
+                    //.....
+                })
+                .catch((e)=>{
+                    console.log('firestore eror',  e)
+                })
 
         });
 
@@ -180,15 +184,65 @@ const EditUser = () => {
     //         setUsers(users)
     //     }
     // }
-    
+    useEffect(()=>{
+        console.log('ファイルを取得する');
+        const storage = getStorage();
+        const starsRef = ref(storage, 'users/undraw_profile_pic_ic5t.png');
+        getDownloadURL(starsRef)
+        .then((url) => {
+            console.log('photoURL',url);
+            setAvater(url)
+            
+
+            // // This can be downloaded directly:
+            // const xhr = new XMLHttpRequest();
+            // xhr.responseType = 'blob';
+            // xhr.onload = (event) => {
+            // const blob = xhr.response;
+            // };
+            // xhr.open('GET', url);
+            // xhr.send();
+
+            // // Or inserted into an <img> element
+            // const img = document.getElementById('myimg');
+            // img.setAttribute('src', url);
+
+        })
+        .catch((error) => {
+            console.log('storage getDownloadURL error');
+            console.log(error);
+        })
+    //     getDownloadURL(ref(storage, 'users/undraw_profile_pic_ic5t.png'))
+    //       .then((url) => {
+    //         // `url` is the download URL for 'images/stars.jpg'
+    //         console.log('storage photp url: ', url);
+        
+    //         // This can be downloaded directly:
+    //         // const xhr = new XMLHttpRequest();
+    //         // xhr.responseType = 'blob';
+    //         // xhr.onload = (event) => {
+    //         //   const blob = xhr.response;
+    //         // };
+    //         // xhr.open('GET', url);
+    //         // xhr.send();
+        
+    //         // // Or inserted into an <img> element
+    //         // const img = document.getElementById('myimg');
+    //         // img.setAttribute('src', url);
+    //       })
+    //       .catch((e) => {
+    //         console.log('firestore eror',  e)
+    //       });
+    },[user.photoURL])
      return (
         <div>
             <h3>Firestoreにユーザー情報を登録する</h3> 
             <div>uid:{user.uid}</div> 
             <div>e-mail:{user.email}</div>
-            <div>name:{displayName}</div>
-            {/* <div>Name:{user.displayName}</div>
-            <div>photoURL:{user.photoURL}</div> */}
+            <div>displayName:{user.displayName}</div>
+            <div>photoURL:{user.photoURL}</div>
+
+
             <br />
             <h3>ユーザー名を登録する</h3>
             <label htmlFor="displayName">
@@ -240,6 +294,8 @@ const EditUser = () => {
                         />
                 </label>
             </div>
+            <img src={avater} alt="avater" />
+          
 
             <br />
             <br />

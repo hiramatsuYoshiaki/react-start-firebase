@@ -7,13 +7,9 @@ const Auth = ({ children }) => {
 
     const user = useContext(UserContext)
     console.log('auth user', user);
-    // const isSignedIn = false
 
     if (!user.user) {
-    // if (!isSignedIn) {
         return (<Redirect to="/login" />)
-        // <></>
-        
     } else {
         return children
     }

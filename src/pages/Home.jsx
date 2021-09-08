@@ -81,8 +81,23 @@ const Home = () => {
     return (
         <div style={{backgroundColor:"white"}}>
             {user !== null 
-            ? <div>ようこそ、{user.displayName}</div> 
-            : <div>Loginしていません。</div>}
+            ?
+                <div>
+                    <div>私は、{user.displayName}です。よろしくね！</div>
+                    <div>uid:{user.uid}</div>
+                    <div>email:{user.email}</div>
+                    <div>displayName:{user.displayName}</div>
+                    <div>photoURL:{user.photoURL}</div>
+                </div> 
+            : 
+                <div>
+                    <div>Loginしていません。</div>
+                    <div>サインインしてあなたのキャリアを作成しましょう！</div>
+                    <div>３つのステップを完了してください。</div>
+                    <div>Step1  あなたの基本情報</div>
+                    <div>Step2　あなたの作品</div>
+                    <div>Step3　あなたの仕事内容</div>
+                </div>}
             {/* <button onClick={()=> fetchUsers() }>users</button> */}
             {/* {users.map(user=>(
                 <div key={user.id}>

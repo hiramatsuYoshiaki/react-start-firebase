@@ -2,15 +2,12 @@
 import React, {useState, useContext,} from 'react'
 import { UserContext } from '../../UserContext' 
 import { Redirect } from 'react-router-dom';
-import { LoginData } from '../../util/LoginData'
+// import { LoginData } from '../../util/LoginData'
 import { useHistory, } from 'react-router-dom'
 import { CardUsignImage } from '../../components/surface/cards';
 import loginImage from '../../assets/img/png/undraw_profile_pic_ic5t.png'
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-
-
-
 
 import { makeStyles } from  '@material-ui/core/styles'
 
@@ -37,14 +34,14 @@ const Login = () => {
     const classes = useStyles()
     const history = useHistory()
     const {user, setUser} = useContext(UserContext)
-    const [email,setEmail] = useState('user1@gmail.com')//addUser1@gmail.com ,user2@gmail.com, userX,hiramatsu1157@gmail.com
-    const [password,setPassword] = useState('pass1111')//addUser1Pass1234,password1234,passXXXX,pass1111
+    const [email,setEmail] = useState('user3@gmail.com')//addUser1@gmail.com ,user2@gmail.com, userX,hiramatsu1157@gmail.com
+    const [password,setPassword] = useState('pass3333')//addUser1Pass1234,password1234,passXXXX,pass1111
 
     
     const login = () => {
         console.log('signInWithEmailAndPassword'); 
         const auth = getAuth();
-
+        
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in
@@ -57,12 +54,13 @@ const Login = () => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 console.log('error code',errorCode);
-                console.log('errorMessage',errorMessage);
+                console.log('errorMessage',errorMessage); 
             });
     }
 
-    if(user){
-        return (<Redirect to="/logout" />) 
+    if(user){ 
+        // return (<Redirect to="/logout" />) 
+        return (<Redirect to="/" />) 
     }else {
         return (
             <div>

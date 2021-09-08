@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect} from 'react'
 import { UserContext } from './UserContext' 
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
@@ -17,15 +17,20 @@ import {firebaseConfig} from "./firebase/config";
 
 
 const AppRouter = () => {
+    console.log('AppRouter');
 
     const firebaseApp = initializeApp(firebaseConfig);
     const [user,setUser] = useState(null)
+
     const valueProvider = useMemo(()=> ({ user, setUser }), [ user, setUser ] ) 
     // console.log(valueProvider);
     
     const [isNavigationDrawerOpen, setIsNavigationDrawer] = useState(false)
     const [isBackdropOpen, setIsBackdropOpen] = useState(false)
     const routes = [
+        //auth
+        { path: '/edituser', name: 'EditUser', Component: EditUser },
+        
         // { path: '/', name: 'Home', Component: Home },
         { path: '/todo', name: 'Todo', Component: Todo },
         { path: '/gallery', name: 'Gallery', Component: Gallery },
@@ -39,9 +44,14 @@ const AppRouter = () => {
         // develop 
         { path: '/transitionPages', name: 'TransitionPages', Component: TransitionPages },
         { path: '/fonts', name: 'Fonts', Component: Fonts },
+
+        
       ]
     
     const duration = 500
+    useEffect(()=>{
+
+    },[])
     return (
         <UserContext.Provider value={valueProvider}>
             <Router>
@@ -61,14 +71,15 @@ const AppRouter = () => {
                                     setIsBackdropOpen={setIsBackdropOpen}
                                 />
                             </div>
-                            <div className="f-main">
+                            <div className="f-main"> 
                                
                                 <Switch>
                                         <Route exact path="/login" component={Login} />
                                         <Route exact path="/logout" component={Logout} />
                                         <Route exact path="/signin" component={Signin} />
-                                        <Route exact path="/edituser" component={EditUser} />
                                         <Route exact path="/resetpass" component={ResetPass} />
+
+                                        {/* <Route exact path="/edituser" component={EditUser} /> */}
                                         <Route exact path="/" component={Home} />
                                         <Route exact path="/firebase" component={Firebase} />
  

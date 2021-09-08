@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import { UserContext } from '../../UserContext' 
 import { useHistory, } from 'react-router-dom'
+
 import TextFieldsIcon from '@material-ui/icons/TextFields';
-import RepeatIcon from '@material-ui/icons/Repeat';
 import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     list:{
@@ -37,21 +38,22 @@ const useStyles = makeStyles((theme) => ({
 const Backdrop = ({isBackdropOpen, setIsBackdropOpen}) => {
     const classes = useStyles()
     const history = useHistory();
+    const {user, setUser} = useContext(UserContext)
+    const handleClick = (path) => {
+        setIsBackdropOpen(false)
+        history.push(path)
+    }
     return (
         <div className="f-backdrop">
-            <h5>Develop </h5>
+            <h5>User </h5>
             <div className={classes.line}></div>
             <nav className={classes.list}>
-                <div className={classes.listButton} onClick={()=>history.push('/fonts')}>
+                <div className={classes.listButton} onClick={()=>handleClick('/edituser')}>
                     <div>
                         <TextFieldsIcon className={classes.icons + " " + classes.iconSpace} />
                     </div>
-                    <h5>Fonts</h5>
+                    <h5>user infomation</h5>
                 </div> 
-                <div className={classes.listButton}  onClick={()=>history.push('/transitionPages')}>
-                    <RepeatIcon className={classes.icons + " " + classes.iconSpace} />
-                    <h5>Transitions</h5>
-                </div>
             </nav>
         </div> 
     )

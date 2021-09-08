@@ -8,7 +8,7 @@ import { getAuth, signOut } from "firebase/auth";
 const Logout = () => {
     const {user,setUser} = useContext(UserContext)
     const history = useHistory()
-    const logout = () => {
+    const logout = () => {  
         console.log('onSignOut');
         const auth = getAuth();
         signOut(auth).then(() => {
@@ -26,7 +26,8 @@ const Logout = () => {
     }
 
     if(!user){
-        return (<Redirect to="/login" />) 
+        // return (<Redirect to="/login" />)  
+        return (<Redirect to="/" />)  
     }else {
         return (
             <div>
