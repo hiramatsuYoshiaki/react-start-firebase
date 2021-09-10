@@ -1,6 +1,7 @@
 import React,{useState,useContext,useEffect} from 'react'
 import { useHistory } from 'react-router-dom'
 import {UserContext} from '../../UserContext'
+
 import { collection, doc, addDoc, setDoc } from "firebase/firestore";
 // import { collection, getDocs } from "firebase/firestore";
 // import {firebaseConfig} from "./config";
@@ -8,10 +9,30 @@ import { getFirestore } from "firebase/firestore"
 // import { getStorage, ref, uploadBytes } from "firebase/storage";
 // import { getStorage, ref, getDownloadURL } from "firebase/storage"
 import { getStorage, ref, uploadBytes ,getDownloadURL} from "firebase/storage";
+import { makeStyles } from  '@material-ui/core/styles'
+
+const useStyles = makeStyles((theme) => ({
+    // header:{
+    //     width:'100%',
+    // },
+    // section:{
+    //     display:'flex',
+    //     alignItems:'center',
+    //     flexDirection:'column',
+    //     justifyContent:'flex-start',
+    //     padding:"1.6rem 0 1.6rem 0",
+    // }
+    avater:{
+        width:"20rem",
+        height:"auto",
+    },
+})) 
 
 const EditUser = () => {
+    const classes = useStyles()
     const history = useHistory()
     const {user, setUser} = useContext(UserContext)
+
     const [avater,setAvater] = useState(null)
     
     const [displayName, setDispalyName] = useState('')
@@ -133,7 +154,7 @@ const EditUser = () => {
                     //.....
                 })
                 .catch((e)=>{
-                    console.log('firestore eror',  e)
+                    console.log('firestore eror',  e) 
                 })
 
         });
@@ -184,8 +205,15 @@ const EditUser = () => {
     //         setUsers(users)
     //     }
     // }
+
+
     useEffect(()=>{
-        console.log('ファイルを取得する');
+        //fistoreからユーザー情報を取得する
+        console.log('ファイアストアを取得する');
+
+
+        //storegeからアバター画像を取得する
+        console.log('ストレージファイルを取得する');
         const storage = getStorage();
         const starsRef = ref(storage, 'users/undraw_profile_pic_ic5t.png');
         getDownloadURL(starsRef)
@@ -234,9 +262,24 @@ const EditUser = () => {
     //         console.log('firestore eror',  e)
     //       });
     },[user.photoURL])
+
+
      return (
         <div>
-            <h3>Firestoreにユーザー情報を登録する</h3> 
+            <h3>アバターを変更する</h3>
+            <div>
+                <label　htmlFor="avter"> 
+                        アバターイメージ
+                        <input className="u-display-none"
+                            type="file"
+                            id="avter"
+                            accept={"image/jpeg"}
+                            onChange={e => uploadImage(e)}
+                        />
+                </label>
+            </div>
+            <img src={avater} alt="avater" className={classes.avater} />
+            <h3>ユーザー情報を変更する</h3> 
             <div>uid:{user.uid}</div> 
             <div>e-mail:{user.email}</div>
             <div>displayName:{user.displayName}</div>
@@ -282,19 +325,7 @@ const EditUser = () => {
             <br />
             <br />
             <br />
-            <h3>アバターを登録する</h3>
-            <div>
-                <label　htmlFor="avter">
-                        アバターイメージ
-                        <input className="u-display-none"
-                            type="file"
-                            id="avter"
-                            accept={"image/jpeg"}
-                            onChange={e => uploadImage(e)}
-                        />
-                </label>
-            </div>
-            <img src={avater} alt="avater" />
+            
           
 
             <br />

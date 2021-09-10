@@ -39,7 +39,7 @@ const Login = () => {
 
     
     const login = () => {
-        console.log('signInWithEmailAndPassword'); 
+        console.log('signInWithEmailAndPassword');  
         const auth = getAuth();
         
         signInWithEmailAndPassword(auth, email, password)
@@ -59,8 +59,7 @@ const Login = () => {
     }
 
     if(user){ 
-        // return (<Redirect to="/logout" />) 
-        return (<Redirect to="/" />) 
+        return (<Redirect to="/" />)  
     }else {
         return (
             <div>

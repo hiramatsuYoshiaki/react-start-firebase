@@ -3,9 +3,25 @@ import {UserContext} from '../../UserContext'
 import { Redirect } from 'react-router-dom';
 import { useHistory } from 'react-router-dom'
 
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth"; 
+import { CardUsignImage } from '../../components/surface/cards';
+import loginImage from '../../assets/img/png/undraw_profile_pic_ic5t.png'
+import { makeStyles } from  '@material-ui/core/styles'
 
+const useStyles = makeStyles((theme) => ({
+    header:{
+        width:'100%',
+    },
+    section:{
+        display:'flex',
+        alignItems:'center',
+        flexDirection:'column',
+        justifyContent:'flex-start',
+        padding:"1.6rem 0 1.6rem 0",
+    }
+})) 
 const Logout = () => {
+    const classes = useStyles()
     const {user,setUser} = useContext(UserContext)
     const history = useHistory()
     const logout = () => {  
@@ -26,24 +42,44 @@ const Logout = () => {
     }
 
     if(!user){
-        // return (<Redirect to="/login" />)  
         return (<Redirect to="/" />)  
     }else {
         return (
             <div>
-                <h1>Hello！{user.displayName}</h1>
-                <div>uid:{user.uid}</div>
-                <div>e-mail:{user.email}</div>
-                <div>Name:{user.displayName}</div>
-                <div>photoURL:{user.photoURL}</div>
-                <button onClick={()=>history.push('/edituser')}>
-                        Firestoreにユーザーを登録する
-                </button>
+                 <header className={classes.header}>
+                    <CardUsignImage 
+                        img={loginImage} 
+                        width="100%"
+                        height="auto"
+                        maxHeight="39.2rem"
+                        objectFit="contain"
+                        title={user.displayName } 
+                        titleDisplay="block" // none/block
+                        subTitle={user.email}
+                        subTitleDisplay="block" // none/block　
+                    />
+                </header>
+                <section className={classes.section}>
+                    <button onClick={()=>history.push('/edituser')}>
+                            ユーザー情報を変更する。
+                    </button>
+                </section>
+                <section className={classes.section}>
+                    <button onClick={()=> logout()}> 
+                        ログアウトする
+                    </button>
+                </section>
+                <div>
+                    {/* <div>uid:{user.uid}</div>
+                    <div>e-mail:{user.email}</div>
+                    <div>Name:{user.displayName}</div>
+                    <div>photoURL:{user.photoURL}</div> */}
+                </div>
+                
+               
                 <br />
-                <h3>Logout</h3>
-                <button onClick={()=> logout()}>
-                    logout
-                </button>
+                
+                
                
             </div>
         )

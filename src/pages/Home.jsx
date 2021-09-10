@@ -1,14 +1,38 @@
-import React,{useContext} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import {UserContext} from '../UserContext'
+import { getAuth,onAuthStateChanged } from "firebase/auth";
 
 // import React, { useEffect, useState } from 'react'
 // import { db } from '../firebase/index'
 // import {firebaseConfig} from "./config";
 // import { collection, addDoc } from "firebase/firestore";
 // import { collection, getDocs } from "firebase/firestore";
+import { makeStyles } from  '@material-ui/core/styles'
+
+const useStyles = makeStyles((theme) => ({
+    checkNow:{
+        position:'fixed',
+        top:0,
+        left:0,
+        zIndex:9999,
+        width:'100vw',
+        height:'100vh',
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'black',
+        color:'white',
+        opacity:1,
+    },
+    checked:{
+        display:'none',
+    },
+})) 
 
 const Home = () => {
+    const classes = useStyles()
     const {user, setUser} = useContext(UserContext)
+    const [isLoginCheck, setIsLoginCheck] = useState(false)
     // Cloud Firestore ルール　
     //すべて許可-----------------------------
     // rules_version = '2';
@@ -38,7 +62,7 @@ const Home = () => {
     // const db = getFirestore();
     // const [users, setUsers] = useState([])
 
-
+ 
     //データの追加
     // const addDb = async() => {
     //     console.log('addDb');
@@ -70,14 +94,24 @@ const Home = () => {
     //     }
     // }
 
-    // useEffect(()=> {
-    //       console.log('useEffect'); 
-    //     //   addDb()
-    //     // readDb()
-    // },[])
-      
+    useEffect(()=>{
+        //ログインチェック---------------------------------------------
+        setIsLoginCheck(true)
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            // setIsLoginCheck(false)
+            if (user) {
+            //   const uid = user.uid;
+              console.log('onAuthStateChanged user logged in', user.uid);
+              setUser(user)
+            } else {
+              console.log('onAuthStateChanged user logged out');
+              setUser(null)
+            }
+            setIsLoginCheck(false)
+          });
+    },[user,setUser])
 
-    
     return (
         <div style={{backgroundColor:"white"}}>
             {user !== null 
@@ -98,15 +132,8 @@ const Home = () => {
                     <div>Step2　あなたの作品</div>
                     <div>Step3　あなたの仕事内容</div>
                 </div>}
-            {/* <button onClick={()=> fetchUsers() }>users</button> */}
-            {/* {users.map(user=>(
-                <div key={user.id}>
-                    <span>{user.id}</span>
-                    <span>{user.name}</span>
-                    <span>{user.email}</span>
-                </div>
                 
-            ))} */}
+            <div className={isLoginCheck ? classes.checkNow : classes.checked}>Login check! Now......</div>
             
         </div>
     )
