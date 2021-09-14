@@ -1,0 +1,18 @@
+@import "../base/variables.scss";
+//ブレイクポイント
+// $mobileBreakPoint: 600px; //600
+// $tabletBreakPoint: 768px; // 768
+// $desktopBreakPoint: 960px; //960
+// $widescreenBreakPoint: 1280px; //1280
+// $fullhdBreakPoint: 1920px; //1920
+
+.c-displayArea-header{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    @media (min-width: $tabletBreakPoint) {
+        flex-direction: row;
+
+    }
+}

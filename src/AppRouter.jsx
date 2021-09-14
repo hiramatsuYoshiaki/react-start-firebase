@@ -29,7 +29,7 @@ const AppRouter = () => {
     const [isBackdropOpen, setIsBackdropOpen] = useState(false)
     const routes = [
         //auth
-        { path: '/edituser', name: 'EditUser', Component: EditUser },
+        // { path: '/edituser', name: 'EditUser', Component: EditUser },
 
         // { path: '/', name: 'Home', Component: Home },
         { path: '/todo', name: 'Todo', Component: Todo },
@@ -74,7 +74,7 @@ const AppRouter = () => {
                                         <Route exact path="/signin" component={Signin} />
                                         <Route exact path="/resetpass" component={ResetPass} />
 
-                                        {/* <Route exact path="/edituser" component={EditUser} /> */}
+                                        <Route exact path="/edituser" component={EditUser} />
                                         <Route exact path="/" component={Home} />
                                         <Route exact path="/firebase" component={Firebase} />
  

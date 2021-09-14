@@ -6,7 +6,8 @@ import { getAuth,onAuthStateChanged } from "firebase/auth";
 // import { db } from '../firebase/index'
 // import {firebaseConfig} from "./config";
 // import { collection, addDoc } from "firebase/firestore";
-// import { collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs, query, where  } from "firebase/firestore";
+import { getStorage, ref, refFromURL, refFromUR, getDownloadURL} from "firebase/storage";
 import { makeStyles } from  '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -16,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         left:0,
         zIndex:9999,
         width:'100vw',
-        height:'100vh',
+        height:'100vh', 
         display:'flex',
         justifyContent:'center',
         alignItems:'center',
@@ -27,11 +28,18 @@ const useStyles = makeStyles((theme) => ({
     checked:{
         display:'none',
     },
+    avater:{
+        width:"20rem",
+        height:"auto", 
+    },
 })) 
 
 const Home = () => {
     const classes = useStyles()
     const {user, setUser} = useContext(UserContext)
+    const [users,setUsers] = useState([])
+    const [selectUsers,setSelectUsers] = useState([])
+    const [avater,setAvater] = useState(null)
     const [isLoginCheck, setIsLoginCheck] = useState(false)
     // Cloud Firestore ルール　
     //すべて許可-----------------------------
@@ -78,21 +86,64 @@ const Home = () => {
     //       }
     // }
 
+    // データ全件を読み取る
+    const getUsers = async() => {
+        // console.log('getUser All');
+        const db = getFirestore();
+        const querySnapshot = await getDocs(collection(db, "users"));
+        const users = []
+        querySnapshot.forEach((doc) => {
+            // console.log(`${doc.id} => ${doc.data()}`);
+            const user = doc.data()
+            users.push(user)
+        });
+        setUsers(users)
+    }
+    //該当ユーザーを選択する
+    const getSelectUser = async(uid) => {
+        // console.log('getSelectUser');
+        // console.log(uid);
+        const selectUsers = []
 
-    // データを読み取る
-    // const readDb = async() => {
-        
-    //     const querySnapshot = await getDocs(collection(db, "users"));
-    //     const users = []
-    //     querySnapshot.forEach((doc) => {
-    //         console.log(`${doc.id} => ${doc.data()}`);
-    //         const user = doc.data()
-    //         users.push(user)
-    //     });
-    //     if(users.length > 0 ){
-    //         setUsers(users)
-    //     }
-    // }
+        const db = getFirestore();
+        const citiesRef = collection(db, "users");
+        const q = query(citiesRef, where("id", "==", uid));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        // console.log(doc.id, " => ", doc.data());
+        const user = doc.data()
+        selectUsers.push(user)
+        });
+        setSelectUsers(selectUsers)
+        // getAvater()
+    }
+    //storageのアバターを取得する
+    const getAvater = (url) => {
+        console.log('get Avater');
+        console.log(url);
+        const storage = getStorage();
+        //以下3つの方法で参照を作成できます
+        //1.子パス
+        // const reference = ref(storage, 'users/undraw_profile_pic_ic5t.png');
+        // 2. //URL(gs://)オブジェクトを参照 
+        // const reference = ref(storage, 'gs://h-works.appspot.com/users/undraw_profile_pic_ic5t.pngg');
+        // 3. //URL(https://)オブジェクトを参照 
+        // const reference = ref(storage, 'https://firebasestorage.googleapis.com/v0/b/h-works.appspot.com/o/users%2Fundraw_profile_pic_ic5t.png?alt=media&token=356b019e-9542-4b8c-9b40-39fcfb3b0b53g');
+       
+        const reference = ref(storage, url);
+        getDownloadURL(reference)
+        .then((url) => {
+            console.log('photoURL',url);
+            setAvater(url)
+        })
+        .catch((error) => {
+            console.log('storage getDownloadURL error');
+            console.log(error);
+        })
+       
+    }
+    
 
     useEffect(()=>{
         //ログインチェック---------------------------------------------
@@ -102,15 +153,20 @@ const Home = () => {
             // setIsLoginCheck(false)
             if (user) {
             //   const uid = user.uid;
-              console.log('onAuthStateChanged user logged in', user.uid);
+            //   console.log('home onAuthStateChanged user logged in', user.uid);
               setUser(user)
+              getUsers()
+              getSelectUser(user.uid)
+              getAvater(user.photoURL)
             } else {
-              console.log('onAuthStateChanged user logged out');
+            //   console.log('home onAuthStateChanged user logged out');
               setUser(null)
             }
             setIsLoginCheck(false)
           });
     },[user,setUser])
+
+   
 
     return (
         <div style={{backgroundColor:"white"}}>
@@ -118,10 +174,30 @@ const Home = () => {
             ?
                 <div>
                     <div>私は、{user.displayName}です。よろしくね！</div>
+                    <div>firebase auth-----------</div>
                     <div>uid:{user.uid}</div>
                     <div>email:{user.email}</div>
                     <div>displayName:{user.displayName}</div>
                     <div>photoURL:{user.photoURL}</div>
+                    <br />
+                    <div>
+                        {/* <div>Firebase data all------</div>
+                        {users.map(user=>(user.email))} */}
+                        <div>firestore login user------</div>
+                        {selectUsers.map(selectUser=> (
+                            <div key={selectUser.id}>
+                                <div>{selectUser.id}</div>
+                                <div>{selectUser.email}</div>
+                                <div>{selectUser.name}</div>
+                                <div>{selectUser.photoURL}</div>
+                            </div>
+                        ))}
+                    </div>
+                    <br />
+                    <div>
+                        <div>avater</div>
+                        <img src={avater} alt="avater" className={classes.avater} />
+                    </div>
                 </div> 
             : 
                 <div>

@@ -2,38 +2,66 @@ import React,{useState,useContext,useEffect} from 'react'
 import { useHistory } from 'react-router-dom'
 import {UserContext} from '../../UserContext'
 
-import { collection, doc, addDoc, setDoc } from "firebase/firestore";
-// import { collection, getDocs } from "firebase/firestore";
-// import {firebaseConfig} from "./config";
-import { getFirestore } from "firebase/firestore"
-// import { getStorage, ref, uploadBytes } from "firebase/storage";
-// import { getStorage, ref, getDownloadURL } from "firebase/storage"
+import { getFirestore, collection, doc, addDoc, setDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes ,getDownloadURL} from "firebase/storage";
-import { makeStyles } from  '@material-ui/core/styles'
 
+import { listenAuth } from '../../firebase/auth/listenAuth';
+import { getSelectUsers } from '../../firebase/firestore/getSelectUsers';
+import { getAvater } from '../../firebase/storage/getAvater';
+import { DisplayArea, InputArea } from '../../components/user/index';
+
+import { makeStyles } from  '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
-    // header:{
-    //     width:'100%',
-    // },
-    // section:{
-    //     display:'flex',
-    //     alignItems:'center',
-    //     flexDirection:'column',
-    //     justifyContent:'flex-start',
-    //     padding:"1.6rem 0 1.6rem 0",
-    // }
     avater:{
         width:"20rem",
         height:"auto",
+    },
+    displayNone:{
+        display:'none'
+    },
+    checkNow:{
+        position:'fixed',
+        top:0,
+        left:0,
+        zIndex:9999,
+        width:'100vw',
+        height:'100vh',
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'black',
+        color:'white',
+        opacity:1,
+    },
+    checked:{
+        display:'none',
     },
 })) 
 
 const EditUser = () => {
     const classes = useStyles()
     const history = useHistory()
-    const {user, setUser} = useContext(UserContext)
+    const {user, setUser} = useContext(UserContext)//auth
+    const [selectUsers,setSelectUsers] = useState([])//firestore
+    const [photoURL,setPhotoURL] = useState('')//storage
+    const [isLoginCheck, setIsLoginCheck] = useState(false)// loading image
+    const [isInput, setIsInput] = useState(false) //修正画面表示
+    const [editUser, setEditUser] = useState({
+        email:'email@gmail.com',
+        displayName:'displayName',
+        photoURL:'http://photo.filename',
+        nameKanji:'kanji name',
+        nameKatakana:'katakana name',
+        birthday:'19630817',
+        sex:'mail',
+        post:'700111',
+        pref:'岡山',
+        address:'南区大福111',
+        tel:'090111222'
+    })//Edit data
 
     const [avater,setAvater] = useState(null)
+    
     
     const [displayName, setDispalyName] = useState('')
     const [userInfo, setUserInfo] = useState({
@@ -46,8 +74,9 @@ const EditUser = () => {
         address:'南区大福111',
         tel:'090111222'
     })
-    const [photoURL,setPhotoURL] = useState('')
-    console.log(userInfo);
+    
+
+
     const setMoreInfo = (e) => {
         console.log('setMoreInfo');
         setUserInfo({
@@ -63,11 +92,11 @@ const EditUser = () => {
                 // を使用してドキュメントを作成する場合、作成するドキュメントの ID を指定する必要があります。
                 // ドキュメントが存在しない場合は、ドキュメントが新規に作成されます。ドキュメントが存在する場合、
                 // 新しく提供されたデータでコンテンツが上書(すべて)きされます。
-                await setDoc(doc(db, "users", user.uid), {
-                      id: user.uid,
-                      name: displayName,
-                      email: user.email
-                });
+                // await setDoc(doc(db, "users", user.uid), {
+                //       id: user.uid,
+                //       name: displayName,
+                //       email: user.email
+                // });
                 //2.setDoc set() merge:true---------------------------
                 // ドキュメントが存在するかどうかわからない場合は、新しいデータを既存のドキュメントに統合するオプションを渡し、
                 // ドキュメント全体が上書きされないようにしま・・・・
@@ -77,11 +106,11 @@ const EditUser = () => {
                 // }, { merge: true });
                 //3.addDoc ---------------------------------------------
                 //  idをD を自動的に生成
-                // const docRef = await addDoc(collection(db, "users"), {
-                //   id: user.uid,
-                //   name: displayName,
-                //   email: user.email
-                // }); 
+                await addDoc(collection(db, "users"), {
+                  id: user.uid,
+                  name: displayName,
+                  email: user.email
+                }); 
 
                 // 4. doc setDoc -------------------------------------------- 
                 // 自動生成された ID を持つドキュメント参照を作成して、後で参照を使用
@@ -111,15 +140,13 @@ const EditUser = () => {
         }
         catch(e){
             console.error("Error adding document: ", e);
-        }
+        } 
 
     }
     const [images, setImages] = useState([])
+
     const uploadImage = (e) => {
         console.log('uploadImag');
-        // const storage = getStorage()
-        // const storageRef = storage.ref();
-        // const usersCollection = ref(storage, "images/example.png");
 
         const file = e.target.files;
         //アップロードするにはBlogオブジェクトに変換する必要がある
@@ -132,12 +159,10 @@ const EditUser = () => {
         const N=16;
         const fileName = Array.from(crypto.getRandomValues(new Uint32Array(N))).map((n)=>S[n%S.length]).join('')
         console.log('fileName',fileName);
-         
-
 
         //firebase storageのimageフォルダーにアップロードする
         const storage = getStorage();
-        const storageRef = ref(storage, 'images/' + fileName);
+        const storageRef = ref(storage, 'users/' + fileName);
 
         // 'file' comes from the Blob or File API
         uploadBytes(storageRef, blob).then((snapshot) => {
@@ -145,7 +170,7 @@ const EditUser = () => {
             console.log('Uploaded a blob or file!');
 
             //URL取得    
-            const starsRef = ref(storage, 'images/' + fileName);
+            const starsRef = ref(storage, 'users/' + fileName);
             getDownloadURL(starsRef)
                 .then((URL) => {
                     console.log(URL);
@@ -159,146 +184,156 @@ const EditUser = () => {
 
         });
 
-        
-
-        // const uploadRef = storage.ref('images').child(fileName);
-        // const uploadTask = uploadRef.put(blob);
-
-        // //firebase storegeの画像ファイルのURLを取得する
-        // uploadTask.then(() => {
-        //     // Handle successful uploads on complete
-        //     uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-        //         // dispatch(hideLoadingAction())
-        //         const newImage = { id: fileName, path: downloadURL, description: '', instagram:'', twitter:'' };
-        //         // if (props.Multiple) {
-        //         //     props.setImages((prevState => [...prevState, newImage])) //追加する場合の書き方
-        //         // } else {
-        //         //     props.setImages([newImage])
-        //         // }
-        //         setImages((prevState => [...prevState, newImage])) //追加する場合の書き方
-        //     });
-        // }).catch((e) => { 
-        //     // dispatch(hideLoadingAction())
-        //     console.log(e)
-
-        // });
-    
-    
-    
     }
-
-
-    
-
-
-    // データを読み取る
-    // const readDb = async() => {
-        
-    //     const querySnapshot = await getDocs(collection(db, "users"));
-    //     const users = []
-    //     querySnapshot.forEach((doc) => {
-    //         console.log(`${doc.id} => ${doc.data()}`);
-    //         const user = doc.data()
-    //         users.push(user)
-    //     });
-    //     if(users.length > 0 ){
-    //         setUsers(users)
-    //     }
-    // }
-
-
+    //ログインチェック
     useEffect(()=>{
-        //fistoreからユーザー情報を取得する
-        console.log('ファイアストアを取得する');
+         listenAuth(user, setUser, isLoginCheck, setIsLoginCheck)
+    },[user])
+    //ログインユーザーのfirestoreにあるユーザー情報を取得
+    useEffect(()=>{
+        if(user){
+         getSelectUsers(selectUsers, setSelectUsers, user.uid,)
+        }
+    },[user])
+    //ログインユーザーのstorageにあるアバター画像を取得
+    useEffect(()=>{
+        if(user){
+            getAvater(photoURL, setPhotoURL, user.photoURL,)
+        }
+   },[user])
 
+    // useEffect(()=>{
+    //     //ログインチェック
 
-        //storegeからアバター画像を取得する
-        console.log('ストレージファイルを取得する');
-        const storage = getStorage();
-        const starsRef = ref(storage, 'users/undraw_profile_pic_ic5t.png');
-        getDownloadURL(starsRef)
-        .then((url) => {
-            console.log('photoURL',url);
-            setAvater(url)
-            
+    //     //fistoreからユーザー情報を取得する
+    //     console.log('ファイアストアを取得する');
 
-            // // This can be downloaded directly:
-            // const xhr = new XMLHttpRequest();
-            // xhr.responseType = 'blob';
-            // xhr.onload = (event) => {
-            // const blob = xhr.response;
-            // };
-            // xhr.open('GET', url);
-            // xhr.send();
+    //     //storegeからアバター画像を取得する
+    //     console.log('ストレージファイルを取得する');
 
-            // // Or inserted into an <img> element
-            // const img = document.getElementById('myimg');
-            // img.setAttribute('src', url);
-
-        })
-        .catch((error) => {
-            console.log('storage getDownloadURL error');
-            console.log(error);
-        })
-    //     getDownloadURL(ref(storage, 'users/undraw_profile_pic_ic5t.png'))
-    //       .then((url) => {
-    //         // `url` is the download URL for 'images/stars.jpg'
-    //         console.log('storage photp url: ', url);
+    //     const storage = getStorage();
+    //     //参照を作成する
+    //     //参照は、ストレージ ルートに子パスを付加して作成することも、
+    //     //Cloud Storage のオブジェクトを参照する既存の gs:// 
+    //     //または https:// URL から作成することもできます。
         
-    //         // This can be downloaded directly:
-    //         // const xhr = new XMLHttpRequest();
-    //         // xhr.responseType = 'blob';
-    //         // xhr.onload = (event) => {
-    //         //   const blob = xhr.response;
-    //         // };
-    //         // xhr.open('GET', url);
-    //         // xhr.send();
-        
-    //         // // Or inserted into an <img> element
-    //         // const img = document.getElementById('myimg');
-    //         // img.setAttribute('src', url);
-    //       })
-    //       .catch((e) => {
-    //         console.log('firestore eror',  e)
-    //       });
-    },[user.photoURL])
+    //     //子パス
+    //     const pathReference = ref(storage, 'users/undraw_profile_pic_ic5t.png');
+    //     //URL(gs://)オブジェクトを参照 
+    //     const gsReference = ref(storage, 'gs://h-works.appspot.com/users/undraw_profile_pic_ic5t.pngg');
+    //     //URL(https://)オブジェクトを参照
+    //     const httpsReference = ref(storage, 'https://firebasestorage.googleapis.com/v0/b/h-works.appspot.com/o/users%2Fundraw_profile_pic_ic5t.png?alt=media&token=356b019e-9542-4b8c-9b40-39fcfb3b0b53g');
+       
+    //     getDownloadURL(pathReference)
+    //     .then((url) => {
+    //         console.log('photoURL',url);
+    //         setAvater(url)
+    //         setPhotoURL(url)
+    //     })
+    //     .catch((error) => {
+    //         console.log('storage getDownloadURL error');
+    //         console.log(error);
+    //     })
+
+    // },[user.photoURL])
 
 
      return (
-        <div>
-            <h3>アバターを変更する</h3>
+        <div  className="f-fexed-container">
+            {user !== null 
+            ?
             <div>
+                <div>
+                    {isInput ? <InputArea />
+                             : <DisplayArea user={user} selectUsers={selectUsers} photoURL={photoURL}/>
+                    }
+                    <button onClick={()=> setIsInput(!isInput)}> 
+                        {isInput ? '戻る'
+                                : '修正'
+                        }
+                    </button>
+                </div>
+
+                {/* <div>ユーザー情報</div>
+                 <img src={photoURL} alt="avater" className={classes.avater} />
+                <br />
+                <div>メールアドレス:{user.email}</div>
+                <br />
+                <div>アカウント名:{user.displayName}</div>
+               
+                <br /> */}
+                {/* <div>--------------------------------------------------------</div> */}
+                {/* <br />
+                <div>名前（漢字）：</div>
+                <div>名前（カタカナ）：</div>
+                <div>誕生日：</div>
+                <div>性別：</div>
+                <div>郵便番号：</div>
+                <div>県：</div>
+                <div>住所：</div>
+                <div>電話番号：</div>
+                <div>
+                    <button>ユーザー情報を修正</button>
+                </div>
+                <br />
+                <div>
+                    <button>アカウントを削除</button>
+                </div> */}
+                {/* <div>--------------------------------------------------------</div> */}
+                {/* <div>firebase auth-----------</div>
+                <div>uid:{user.uid}</div>
+                <div>email:{user.email}</div>
+                <div>displayName:{user.displayName}</div>
+                <div>photoURL:{user.photoURL}</div>
+                <br /> */}
+                {/* {selectUsers.map(selectUser => 
+                <div>
+                    <div>id:{selectUser.id}</div>
+                    <div>email:{selectUser.email}</div>
+                    <div>name:{selectUser.name}</div>
+                    <div>photoURL:{selectUser.photoURL}</div>
+                </div>)} */}
+                {/* <div>{photoURL}</div>
+                <img src={photoURL} alt="avater" className={classes.avater} /> */}
+                    
+            </div>
+            :
+            <div>
+                logout
+            </div>
+            }
+            {/* <h3>アバターを変更する</h3> */}
+            {/* <div>
                 <label　htmlFor="avter"> 
-                        アバターイメージ
-                        <input className="u-display-none"
+                        アバターイメージを変更する
+                        <input className={classes.displayNone}
                             type="file"
                             id="avter"
-                            accept={"image/jpeg"}
+                            accept={"image/jpeg, image/png"}
                             onChange={e => uploadImage(e)}
                         />
                 </label>
-            </div>
-            <img src={avater} alt="avater" className={classes.avater} />
-            <h3>ユーザー情報を変更する</h3> 
+            </div> */}
+           
+            {/* <img src={photoURL} alt="avater" className={classes.avater} />
+            <div>{photoURL}</div> */}
+            {/* <h3>ユーザー情報を変更する</h3> 
             <div>uid:{user.uid}</div> 
             <div>e-mail:{user.email}</div>
             <div>displayName:{user.displayName}</div>
-            <div>photoURL:{user.photoURL}</div>
+            <div>photoURL:{user.photoURL}</div> */}
 
 
             <br />
-            <h3>ユーザー名を登録する</h3>
-            <label htmlFor="displayName">
+            {/* <h3>ユーザー名を登録する</h3> */}
+            {/* <label htmlFor="displayName">
                 Name: 
                 <input type="text" id="dispalyName" name="dispalyName" value={displayName} onChange={e=>setDispalyName(e.target.value)}  />
             </label>
             <br />
-            <button onClick={()=>addUser()}>登録する</button>
-            <br />
-            <br />
-            <br />
-            <h3>追加情報を登録する。</h3>
-            <form onSubmit={e=>{
+            <button onClick={()=>addUser()}>登録する</button> */}
+            {/* <h3>追加情報を登録する。</h3> */}
+            {/* <form onSubmit={e=>{
                 e.preventDefault()//デフォルトの動作(ページがリロード)をキャンセル
                 console.log('onsubmit');
                 addMoreInfo()
@@ -320,18 +355,10 @@ const EditUser = () => {
                 <br />
                 <br />
                 <input type="submit" value="追加情報を登録"></input>
-            </form>
+            </form> */}
             
-            <br />
-            <br />
-            <br />
-            
-          
-
-            <br />
-            <br />
-            <br />
-            <button onClick={()=> history.push('/logout')}>戻る</button>
+            <button onClick={()=> history.push('/logout')}>前の画面へ戻る</button>
+            <div className={isLoginCheck ? classes.checkNow : classes.checked}>Login check! Now......</div>
         </div>
     )
 }

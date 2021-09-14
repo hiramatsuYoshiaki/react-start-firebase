@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react'
 import { UserContext } from '../../UserContext' 
 import { useHistory, } from 'react-router-dom'
 import { getAuth, createUserWithEmailAndPassword, updateProfile, updateCurrentUser } from "firebase/auth";
-import { getFirestore, collection, setDoc,addDoc } from "firebase/firestore";
+import { getFirestore, collection, setDoc,addDoc,serverTimestamp } from "firebase/firestore";
 
 const Signin = () => {
     const history = useHistory()
@@ -16,6 +16,12 @@ const Signin = () => {
     const setFirestore = async(authCurrentUser) => {
         console.log('firestore add doc');
         const db = getFirestore();
+        // const timestamp = serverTimestamp.now()
+        // const timestamp = new Date(serverTimestamp)
+        // console.log(serverTimestamp());
+        // const sts = serverTimestamp()
+        // const timestamp =  new Date(sts).getTime();
+        // console.log(timestamp);
         try{
             //  idをD を自動的に生成
             await addDoc(collection(db, "users"), {
@@ -23,6 +29,17 @@ const Signin = () => {
               email: authCurrentUser.email,
               name: authCurrentUser.displayName,
               photoURL: authCurrentUser.photoURL,
+              nameKanji:'',
+              nameKana:'',
+              birthday:'',
+              sex:'',
+              post:'',
+              pref:'',
+              address:'',
+              tel:'',
+              create_at:serverTimestamp(),
+              update_at:serverTimestamp(),
+
             });
             //1.setDoc set()---------------------------
                 // を使用してドキュメントを作成する場合、作成するドキュメントの ID を指定する必要があります。

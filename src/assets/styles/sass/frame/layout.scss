@@ -84,3 +84,40 @@
     height:100vh;
     background-color:rgba(0,0,0,1);
 }
+//ブレイクポイント
+// $mobileBreakPoint: 600px; //600
+// $tabletBreakPoint: 768px; // 768
+// $desktopBreakPoint: 960px; //960
+// $widescreenBreakPoint: 1280px; //1280
+// $fullhdBreakPoint: 1920px; //1920
+
+.f-flude-container{
+    margin:0;
+    padding:0;
+    // @media (min-width: $tabletBreakPoint) {
+    //     margin:0;
+    //     padding:0 10rem;
+    // } 
+}
+
+.f-fexed-container{
+    margin:0;
+    padding:.8rem;
+    // background-color:red;
+    // @media (min-width: $tabletBreakPoint) {
+    //     margin:0;
+    //     padding:0 10rem;
+    //     background-color:greenyellow;
+    // } 
+    @media (min-width: $desktopBreakPoint) {
+        margin:0;
+        padding:0 20rem;
+        // background-color:pink;
+    } 
+    @media (min-width: $widescreenBreakPoint) {
+        margin:0;
+        padding:0 30rem;
+        // background-color:violet;
+    } 
+    
+}
