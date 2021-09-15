@@ -1,4 +1,4 @@
-import React,{useState,useRef} from 'react'
+import React,{useState,useRef,useEffect} from 'react'
 import { CSSTransition } from 'react-transition-group';
 import { makeStyles } from  '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
@@ -72,7 +72,7 @@ const useStyles = makeStyles((theme) => ({
     HelperText:{
         display:'inline-block',
         height:'2.8rem',
-        padding:'0 1.6rem',
+        // padding:'0 1.6rem',
         color:'#0069c0',
         fontSize:'1.25rem',//size-6
         fontWeight: 500,
@@ -90,45 +90,46 @@ const useStyles = makeStyles((theme) => ({
         lineHeight: 1.6,
         letterSpacing: '-0.0075em',
     },
-    
-    
-   
-// 1. Container
-// 2. Leading icon (optional)
-// 3. Label text
-// 4. Input text
-// 5. Trailing icon (optional)
-// 6. Activation indicator
-// 7. Helper text (optional)
-})) 
+}))  
 
-const Textfields = ({type, value,placeholder,label,helpers,setValue,errors }) => {
+const Textfields = ({type, value ,placeholder,label,helpers,setValue,errors,fieldName }) => {
     const classes = useStyles()
-    console.log('Textfields');
+    // console.log('Textfields');
     const [isFocus, setIsFocus] = useState(false)
+    const [isInputValue, setIsInputValue] = useState(false)
     const inputRef = useRef()
-    console.log(helpers);
-    console.log(errors);
-    console.log(errors[0])
-    errors.map(error=>
-        // console.log(error)
-        console.log(error.id)
-    )
-    // console.log(errors[0].id);
+    
+    // console.log('isFocus---------->',isFocus);
+    // console.log('isInputValue---------->',isInputValue);
+    // console.log('value---------->',value);
+   
+    
+    useEffect(() => {
+        // console.log('inputRef.current.value',inputRef.current.value);
+        // console.log('value',value);
+        if(inputRef.current.value === "" || inputRef.current.value === null ){
+            setIsInputValue(false)
+        }else{
+            setIsInputValue(true)
+        }
+    }, [inputRef,value]);
+
     return (
         <div className={classes.container}>
             <div className={classes.inputArea}>
                 <div className={classes.label}  onClick={()=>inputRef.current.focus()}>
-                    <CSSTransition in={isFocus || value ? true : false } timeout={250} classNames="LabelFocus">
-                        <div className={classes.LabelText } onClick={()=>inputRef.current.focus()}>{label}</div>
+                    <CSSTransition in={ isFocus || isInputValue  ? true : false } timeout={250} classNames="LabelFocus">
+                        <div>
+                        <span className={classes.LabelText } onClick={()=>inputRef.current.focus()}>{label}</span>
+                        <span className={classes.HelperText }>{helpers}</span>
+                        </div>
                     </CSSTransition>
                 </div>
-
                 <div className={classes.inputWraper}>
                     <input  type={type}
                             value={value} 
-                            onChange={(e) => setValue(e)}
-                            placeholder={isFocus ?  placeholder : ""}
+                            onChange={(e) => setValue(e.target.value)}
+                            // placeholder={isFocus ?  placeholder : ""}
                             className={classes.input }
                             ref={inputRef} 
                             onFocus={()=>setIsFocus(true)}
@@ -136,40 +137,27 @@ const Textfields = ({type, value,placeholder,label,helpers,setValue,errors }) =>
                     />
                 </div>
                 <div className={classes.ActivationIndicator}>
-                    <CSSTransition in={!isFocus} timeout={250} classNames="AIFocusLeft">
+                    {/* <CSSTransition in={!isFocus} timeout={250} classNames="AIFocusLeft"> */}
+                    <CSSTransition in={!isInputValue} timeout={250} classNames="AIFocusLeft">
                         <div className={classes.AIFocus}></div>
                     </CSSTransition>
-                    <CSSTransition in={!isFocus} timeout={250} classNames="AIFocusRight">
+                    {/* <CSSTransition in={!isFocus} timeout={250} classNames="AIFocusRight"> */}
+                    <CSSTransition in={!isInputValue} timeout={250} classNames="AIFocusRight">
                         <div className={classes.AIFocus}></div>
                     </CSSTransition>
                 </div>
                 
             </div>
             
-            <div className={classes.HelperText }>{helpers}</div>
-                {
-                    errors.map(error=>
-                        // console.log(error)
-                        // console.log(error.id)
-                        <div className={classes.errors }>
-                            {error.msg}
-                        </div>
-                    )
-                }
+            {/* <div className={classes.HelperText }>{helpers}</div> */}
+            {
+                errors.map(error=>(
+                    error.field === fieldName &&
+                    <div className={classes.errors }>
+                            <div>{error.msg}</div></div>
+                ))
+            }
             
-            {/* <div>
-                {errors[0].msg}
-            </div> */}
-            {/* <div className={classes.HelperText }>
-               {helpers.map(helper=> (
-                   <div>{helper.msg}</div>
-                   ))}
-            </div> */}
-        {/* <input  type="email" 
-                value={email} 
-                onChange={(e)=>setEmail(e.target.value)}
-                placeholder="E-mail"
-        /> */}
         </div>
     )
 }

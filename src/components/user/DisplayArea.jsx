@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment';
-
 import { makeStyles } from  '@material-ui/core/styles'
+
 const useStyles = makeStyles((theme) => ({
     header:{
         padding:"1.6rem"
@@ -43,31 +43,20 @@ const DisplayArea = ({user, selectUsers, photoURL}) => {
                 <div>--------------------------------------------------------</div> */}
                 {selectUsers.map(selectUser => 
                 <div key={selectUser.id}> 
-                    <div>id:{selectUser.id}</div>
-                    <div>email:{selectUser.email}</div>
-                    <div>name:{selectUser.name}</div>
-                    <div>name kanji:{selectUser.nameKanji}</div>
-                    <div>name katakana:{selectUser.nameKatakana}</div>
-                    <div>birthday:{selectUser.birthday}</div>
-                    <div>sex:{selectUser.sex}</div>
-                    <div>post:{selectUser.post}</div>
-                    <div>pref:{selectUser.pref}</div>
-                    <div>address:{selectUser.address}</div>
-                    <div>tel:{selectUser.tel}</div>
-                    <div>create date:{moment(selectUser.create_at.toDate()).format('YYYY/MM/DD HH:mm')}</div>
-                    <div>update date:{moment(selectUser.create_at.toDate()).format()}</div>
+                    {/* <div>id:{selectUser.id}</div>
+                    <div>メールアドレス:{selectUser.email}</div>
+                    <div>アカウント名:{selectUser.name}</div> */}
+                    <div>名前（漢字）:{selectUser.nameKanji}</div>
+                    <div>名前（カナ）:{selectUser.nameKatakana}</div>
+                    <div>生年月日:{selectUser.birthday}</div>
+                    <div>性別:{selectUser.sex}</div>
+                    <div>郵便番号:{selectUser.post}</div>
+                    <div>都道府県:{selectUser.pref}</div>
+                    <div>住所:{selectUser.address}</div>
+                    <div>ＴＥＬ:{selectUser.tel}</div>
+                    {/* <div>作成日:{moment(selectUser.create_at.toDate()).format('YYYY/MM/DD HH:mm')}</div>
+                    <div>更新日:{moment(selectUser.create_at.toDate()).format('YYYY/MM/DD HH:mm')}</div> */}
                 </div>)}
-                <br />
-                <div>名前（漢字）：</div>
-                <div>名前（漢字）：</div>
-                <div>名前（カタカナ）：</div>
-                <div>誕生日：</div>
-                <div>性別：</div> 
-                <div>郵便番号：</div>
-                <div>県：</div>
-                <div>住所：</div>
-                <div>電話番号：</div>
-                <br />
                 {/* <div>
                     <button>ユーザー情報を修正</button>
                 </div>

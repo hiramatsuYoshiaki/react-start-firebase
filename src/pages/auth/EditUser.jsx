@@ -19,6 +19,12 @@ const useStyles = makeStyles((theme) => ({
     displayNone:{
         display:'none'
     },
+    sectionCenter:{
+        display:'flex',
+        justifyContent:'center',
+        alignContent:'center',
+        flexDirection:'column'
+    },
     checkNow:{
         position:'fixed',
         top:0,
@@ -226,7 +232,7 @@ const EditUser = () => {
        
     //     getDownloadURL(pathReference)
     //     .then((url) => {
-    //         console.log('photoURL',url);
+    //         console.log('photoURL',url); 
     //         setAvater(url)
     //         setPhotoURL(url)
     //     })
@@ -244,9 +250,13 @@ const EditUser = () => {
             ?
             <div>
                 <div>
-                    {isInput ? <InputArea />
+                    {isInput ? <InputArea 
+                                user={user} setUser={setUser} 
+                                selectUsers={selectUsers} setSelectUsers={setSelectUsers} 
+                                photoURL={photoURL} setPhotoURL={setPhotoURL}/>
                              : <DisplayArea user={user} selectUsers={selectUsers} photoURL={photoURL}/>
                     }
+                    
                     <button onClick={()=> setIsInput(!isInput)}> 
                         {isInput ? '戻る'
                                 : '修正'
@@ -299,7 +309,10 @@ const EditUser = () => {
             </div>
             :
             <div>
-                logout
+                <div>
+                    ユーザー情報を確認するには、ログインが必要です。
+                </div>
+                 <button onClick={()=> history.push('/logoin')}>ログイン画面へ</button>
             </div>
             }
             {/* <h3>アバターを変更する</h3> */}
@@ -357,7 +370,7 @@ const EditUser = () => {
                 <input type="submit" value="追加情報を登録"></input>
             </form> */}
             
-            <button onClick={()=> history.push('/logout')}>前の画面へ戻る</button>
+            {/* <button onClick={()=> history.push('/logout')}>前の画面へ戻る</button> */}
             <div className={isLoginCheck ? classes.checkNow : classes.checked}>Login check! Now......</div>
         </div>
     )
