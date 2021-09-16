@@ -1,4 +1,4 @@
-import React,{useState,useRef,useEffect} from 'react'
+import React,{useState,useRef,useEffect, userMemo} from 'react'
 import { CSSTransition } from 'react-transition-group';
 import { makeStyles } from  '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
@@ -91,8 +91,9 @@ const useStyles = makeStyles((theme) => ({
         letterSpacing: '-0.0075em',
     },
 }))  
-
+// const longestWord = useMemo(() => computeLongestWord(data),[data])
 const Textfields = ({type, value ,placeholder,label,helpers,setValue,errors,fieldName }) => {
+// const Textfields = ({type, value ,placeholder,label,helpers,setValue,errors,fieldName }) => {
     const classes = useStyles()
     // console.log('Textfields');
     const [isFocus, setIsFocus] = useState(false)
@@ -128,12 +129,15 @@ const Textfields = ({type, value ,placeholder,label,helpers,setValue,errors,fiel
                 <div className={classes.inputWraper}>
                     <input  type={type}
                             value={value} 
-                            onChange={(e) => setValue(e.target.value)}
+                            // onChange={(e) => setValue(e.target.value)}
+                            // onChange={(e) => setValue(e)}
+                            onChange={ setValue }
                             // placeholder={isFocus ?  placeholder : ""}
                             className={classes.input }
                             ref={inputRef} 
                             onFocus={()=>setIsFocus(true)}
                             onBlur={()=>setIsFocus(false)}
+                            name={fieldName}
                     />
                 </div>
                 <div className={classes.ActivationIndicator}>
@@ -153,11 +157,10 @@ const Textfields = ({type, value ,placeholder,label,helpers,setValue,errors,fiel
             {
                 errors.map(error=>(
                     error.field === fieldName &&
-                    <div className={classes.errors }>
+                    <div className={classes.errors } key={error.id}>
                             <div>{error.msg}</div></div>
                 ))
             }
-            
         </div>
     )
 }
