@@ -1,4 +1,4 @@
-import React,{useState,useRef,useEffect, userMemo} from 'react'
+import React,{useState,useRef,useEffect} from 'react'
 import { CSSTransition } from 'react-transition-group';
 import { makeStyles } from  '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
@@ -91,8 +91,7 @@ const useStyles = makeStyles((theme) => ({
         letterSpacing: '-0.0075em',
     },
 }))  
-// const longestWord = useMemo(() => computeLongestWord(data),[data])
-const Textfields = ({type, value ,placeholder,label,helpers,setValue,errors,fieldName }) => {
+const Textfields = ({type, value ,placeholder,label,helpers, setValue ,errors,fieldName }) => {
 // const Textfields = ({type, value ,placeholder,label,helpers,setValue,errors,fieldName }) => {
     const classes = useStyles()
     // console.log('Textfields');

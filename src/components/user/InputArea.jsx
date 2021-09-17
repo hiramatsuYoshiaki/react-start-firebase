@@ -26,6 +26,7 @@ const InputArea = ({user,setUser, selectUsers,setSelectUsers, photoURL, setPhoto
         {id:'02',name:'email',type:'email',label:"メールアドレス", helpers:"必須"},
         {id:'03',name:'photoURL',type:'text',label:"アバター", helpers:"必須"},
     ]
+    
 
     const [values,handleChange] = useForm({
         email:user.email,
@@ -74,6 +75,10 @@ const InputArea = ({user,setUser, selectUsers,setSelectUsers, photoURL, setPhoto
     //     address:'南区大福111',
     //     tel:'090111222'
     // })
+
+    const inputHandleChange = useCallback(e=>{
+        handleChange(e)
+    },[handleChange])
 
     const [displayName,setDisplayName] = useState(user.displayName)
     const inputDisplayName = useCallback((e) => {
@@ -146,6 +151,7 @@ const InputArea = ({user,setUser, selectUsers,setSelectUsers, photoURL, setPhoto
                 <div>
                     { fields.map((field)=>(
                         <TextFields 
+                            key={field.id}
                             type={field.type}
                             // value={displayName}
                             value={values[field.name]}
@@ -154,7 +160,8 @@ const InputArea = ({user,setUser, selectUsers,setSelectUsers, photoURL, setPhoto
                             helpers={field.helpers}
                             // setValue={setDisplayName} //useState
                             // setValue={inputDisplayName} //useCallback
-                            setValue={handleChange} //useForm
+                            //setValue={handleChange} //useForm
+                            setValue={inputHandleChange} //useForm+useCallback
                             errors={errors}
                             fieldName={field.name}
                         />

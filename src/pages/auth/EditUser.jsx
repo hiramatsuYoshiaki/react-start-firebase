@@ -1,4 +1,4 @@
-import React,{useState,useContext,useEffect} from 'react'
+import React,{useState,useContext,useEffect,useCallback} from 'react'
 import { useHistory } from 'react-router-dom'
 import {UserContext} from '../../UserContext'
 
@@ -8,7 +8,7 @@ import { getStorage, ref, uploadBytes ,getDownloadURL} from "firebase/storage";
 import { listenAuth } from '../../firebase/auth/listenAuth';
 import { getSelectUsers } from '../../firebase/firestore/getSelectUsers';
 import { getAvater } from '../../firebase/storage/getAvater';
-import { DisplayArea, InputArea } from '../../components/user/index';
+import { DisplayArea, InputArea,  } from '../../components/user/index';
 
 import { makeStyles } from  '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 })) 
 
 const EditUser = () => {
+    console.log('EditUser--------------');
     const classes = useStyles()
     const history = useHistory()
     const {user, setUser} = useContext(UserContext)//auth
@@ -243,7 +244,6 @@ const EditUser = () => {
 
     // },[user.photoURL])
 
-
      return (
         <div  className="f-fexed-container">
             {user !== null 
@@ -262,6 +262,10 @@ const EditUser = () => {
                                 : '修正'
                         }
                     </button>
+                    <br />
+                    <br />
+                    <br />
+                    
                 </div>
 
                 {/* <div>ユーザー情報</div>
